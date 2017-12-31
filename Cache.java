@@ -103,15 +103,16 @@ public class Cache {
     }
     private void checkCacheDir() {
         if (!cacheDir.mkdirs()) {
-            boolean cach = !cacheDir.isDirectory();
-          
-                try {while(cach){break;
-                }
-                 
-                } catch (RuntimeException runtimeException) {
+                 try {
+                   boolean cach = !cacheDir.isDirectory();
+                  while (cach) {
+                      break;
+                     } 
+                 }
+                  catch (RuntimeException runtimeException) {
                     System.out.println("can not make cache dir: " + cacheDir);
                 }
-            }
+            
         }
     }
     public InputStream get(String key) {
