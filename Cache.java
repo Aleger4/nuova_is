@@ -37,6 +37,7 @@ public class Cache {
             if (dir.exists()) {
                 if (!dir.isDirectory() || !dir.canWrite()) {
                     try {
+                       break;
                          } catch (RuntimeException runtimeException) {
                         System.out.println("can not write to dir");
                     }
@@ -103,7 +104,7 @@ public class Cache {
             boolean cach = !cacheDir.isDirectory();
             while (cach) {
                 try {
-                  
+                  break;
                 } catch (RuntimeException runtimeException) {
                     System.out.println("can not make cache dir: " + cacheDir);
                 }
