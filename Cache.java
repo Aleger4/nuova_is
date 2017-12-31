@@ -33,22 +33,24 @@ public class Cache {
         if (DEBUG) logger.log(Level.INFO, "starting {0}", cacheDir);
 
         File dir = cacheDir;
-        for (;;) {
+        
             if (dir.exists()) {
                 if (!dir.isDirectory() || !dir.canWrite()) {
                     try {
-                       break;
+                for(;;){
+                 break;}
+                
                          } catch (RuntimeException runtimeException) {
                         System.out.println("can not write to dir");
                     }
                 }
                 if (DEBUG) logger.info("can write to: "+dir);
-                break;
+               
             }
             else {
                 dir = dir.getParentFile();
             }
-        }
+        
     }
 
     private File getFileName(String uid) {
@@ -102,9 +104,10 @@ public class Cache {
     private void checkCacheDir() {
         if (!cacheDir.mkdirs()) {
             boolean cach = !cacheDir.isDirectory();
-            while (cach) {
-                try {
-                  break;
+          
+                try {while(cach){break;
+                }
+                 
                 } catch (RuntimeException runtimeException) {
                     System.out.println("can not make cache dir: " + cacheDir);
                 }
