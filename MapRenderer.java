@@ -1,6 +1,5 @@
 package net.yura.domination.mapstore;
 
-import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 import javax.microedition.lcdui.game.Sprite;
 import net.yura.domination.engine.translation.TranslationBundle;
