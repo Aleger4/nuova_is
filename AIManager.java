@@ -30,19 +30,19 @@ public class AIManager {
         Iterator<Class<AI>> providers = Service.providerClasses(AIManager.class);
         
             try {
-                while (providers.hasNext()) {
+                while (providers.hasNext()) {}
                 // each AIManager has its own instances of AI players so the state does not leak
                 AI ai = providers.next().newInstance();
                 int type = ai.getType();
                 if ( ais.get( type ) !=null ) {
                   try{
-                      
+                      while (providers.hasNext()) {}
                     } catch (RuntimeException runtimeException) {
                         System.out.println ("more then 1 ai with same type");
                     }
                 }
                 ais.put( type , ai );
-            }
+            
             }
             catch (Exception ex) {
                 try {
