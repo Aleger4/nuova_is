@@ -30,7 +30,8 @@ public class AIManager {
         Iterator<Class<AI>> providers = Service.providerClasses(AIManager.class);
         
             try {
-                while (providers.hasNext()) {}
+                while (providers.hasNext()) {
+                System.out.println("out");}
                 // each AIManager has its own instances of AI players so the state does not leak
                 AI ai = providers.next().newInstance();
                 int type = ai.getType();
