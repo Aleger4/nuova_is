@@ -28,29 +28,29 @@ public class AIManager {
 
     public AIManager() {
         Iterator<Class<AI>> providers = Service.providerClasses(AIManager.class);
-        while (providers.hasNext()) {
+        
             try {
+                while (providers.hasNext()) {
                 // each AIManager has its own instances of AI players so the state does not leak
                 AI ai = providers.next().newInstance();
                 int type = ai.getType();
                 if ( ais.get( type ) !=null ) {
-                    try {
+                  try{
                       
                     } catch (RuntimeException runtimeException) {
-                        System.out.println("more then 1 ai with same type");
+                        System.out.println ("more then 1 ai with same type");
                     }
                 }
                 ais.put( type , ai );
             }
+            }
             catch (Exception ex) {
                 try {
-                    
                 } catch (RuntimeException runtimeException) {
-                    System.out.println("");
+                    System.out.println("error");
                 }
             }
         }
-    }
 
     public void play(Risk risk) {
             RiskGame game = risk.getGame();
