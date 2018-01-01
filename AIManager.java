@@ -36,7 +36,7 @@ public class AIManager {
                 int type = ai.getType();
                 if ( ais.get( type ) !=null ) {
                   try{
-                      while (providers.hasNext()) {}
+                   
                     } catch (RuntimeException runtimeException) {
                         System.out.println ("more then 1 ai with same type");
                     }
