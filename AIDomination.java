@@ -137,14 +137,9 @@ public class AIDomination extends AISubmissive {
             try {
                 return (AttackTarget) super.clone();
             } catch (CloneNotSupportedException e) {
-                try {
-                   
-                } catch (RuntimeException runtimeException) {
-                    System.out.println("error");
-                }
-                }
+               System.err.println("CloneNotSupportedException ");
+            }
             return null;
-            
         }
     }
 
