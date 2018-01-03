@@ -147,7 +147,7 @@ public class AICapital extends AIDomination {
             }
             owned.put(c.getOwner(), count);
         }
-        double num = gameState.capitals.size();
+      
         Integer myowned = owned.get(player);
         if (myowned == null) {
             myowned = 0;
