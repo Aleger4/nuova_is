@@ -1558,7 +1558,91 @@ transient - A keyword in the Java programming language that indicates that a fie
 	 * @return boolean Returns true if the player has won the game, returns false otherwise
 	 */
         
-        
+        public boolean checkPlayerWon1(){
+          
+            while (
+					(m.getContinent1() !=null) && // this means its a continent mission
+
+							checkPlayerOwnesContinentForMission(m.getContinent1(),1) &&
+							checkPlayerOwnesContinentForMission(m.getContinent2(),2) &&
+							checkPlayerOwnesContinentForMission(m.getContinent3(),3)
+
+					) {
+
+				// yay you have won
+				result=true;
+				break;
+
+			}
+            return true;
+        }
+        public boolean checkPlayerWon2(){
+            while (
+					m.getNoofcountries() != 0 && m.getNoofarmies() != 0 && // check if this card has a value for capture teretories
+							( m.getPlayer() == null || ((Player)m.getPlayer()).getNoTerritoriesOwned()==0 || (Player)m.getPlayer() == currentPlayer ) &&
+							m.getNoofcountries() <= currentPlayer.getNoTerritoriesOwned() // do you have that number of countries captured
+					) {
+
+				int n=0;
+
+				for (int c=0; c< currentPlayer.getNoTerritoriesOwned() ; c++) {
+					while ( ((Country)((Vector)currentPlayer.getTerritoriesOwned()).elementAt(c)).getArmies() >= m.getNoofarmies() )
+					{n++;
+						break;
+					}
+
+				}
+				if (n >= m.getNoofcountries() ) {
+
+                                    // yay you have won
+                                    boolean result = true;
+
+				}
+				break;
+			}
+            return false;
+        }
+        public boolean checkPlayerWon3(){
+            	int capitalcount=0;
+
+			if ( currentPlayer==((Country)currentPlayer.getCapital()).getOwner() ) {
+
+				for (int c=0; c< Players.size() ; c++) {
+
+					while ( ((Vector)currentPlayer.getTerritoriesOwned()).contains((Country)((Player)Players.elementAt(c)).getCapital()) ) {
+						capitalcount++;
+						break;
+					}
+
+				}
+
+			}
+
+			if ( capitalcount==Players.size() ) {
+                        boolean result = true;
+			}
+            return false;
+                        
+        }
+        public boolean checkPlayerWon4(){
+            Mission m = currentPlayer.getMission();
+
+			while(
+					m.getPlayer() !=null && // check is this is indeed a Elim Player card
+							m.getPlayer() != currentPlayer && // check if its not the current player u need to eliminate
+							((Player)m.getPlayer()).getNoTerritoriesOwned()==0 && // chack if that player has been eliminated
+							((Vector)currentPlayer.getPlayersEliminated()).contains( m.getPlayer() ) //check if it was you who eliminated them
+					) {
+
+                // yay you have won
+                boolean result = true;
+
+				break;
+			}
+			checkPlayerWon2();
+                        checkPlayerWon1();
+                        return false;
+        }
 	public boolean checkPlayerWon() {
 
 		boolean result=false;
@@ -1579,111 +1663,17 @@ transient - A keyword in the Java programming language that indicates that a fie
 
 		}
 
-		// check if the player has won 2 player risk
-
-/* @todo: maybe add this back, as crap player can never win
-
-		else if (getSetupDone() && gameMode==1) {
-
-			Player target=null;
-
-			for (int c=0; c< Players.size() ; c++) {
-
-
-					// ((Player)Players.elementAt(c)).getType() !=3 &&
-
-				if (        (Player)Players.elementAt(c) != currentPlayer ) {
-					target = (Player)Players.elementAt(c);
-				}
-
-			}
-
-			if ( target.getNoTerritoriesOwned()==0 ) {
-
-				result=true;
-
-			}
-
-		}
-*/
-
-		// check if the player has won capital risk!
+	// check if the player has won capital risk!
 		else if (getSetupDone() && gameMode==MODE_CAPITAL && currentPlayer.getCapital() !=null ) {
 
-			int capitalcount=0;
-
-			if ( currentPlayer==((Country)currentPlayer.getCapital()).getOwner() ) {
-
-				for (int c=0; c< Players.size() ; c++) {
-
-					while ( ((Vector)currentPlayer.getTerritoriesOwned()).contains((Country)((Player)Players.elementAt(c)).getCapital()) ) {
-						capitalcount++;
-						break;
-					}
-
-				}
-
-			}
-
-			if ( capitalcount==Players.size() ) {
-				result=true;
-			}
+		checkPlayerWon3();
 
 		}
 		// check if the player has won mission risk!
 		else if (getSetupDone() && gameMode==MODE_SECRET_MISSION ) {
 
-			Mission m = currentPlayer.getMission();
-
-			while(
-					m.getPlayer() !=null && // check is this is indeed a Elim Player card
-							m.getPlayer() != currentPlayer && // check if its not the current player u need to eliminate
-							((Player)m.getPlayer()).getNoTerritoriesOwned()==0 && // chack if that player has been eliminated
-							((Vector)currentPlayer.getPlayersEliminated()).contains( m.getPlayer() ) //check if it was you who eliminated them
-					) {
-
-				// yay you have won
-				result=true;
-
-				break;
-			}
-			while (
-					m.getNoofcountries() != 0 && m.getNoofarmies() != 0 && // check if this card has a value for capture teretories
-							( m.getPlayer() == null || ((Player)m.getPlayer()).getNoTerritoriesOwned()==0 || (Player)m.getPlayer() == currentPlayer ) &&
-							m.getNoofcountries() <= currentPlayer.getNoTerritoriesOwned() // do you have that number of countries captured
-					) {
-
-				int n=0;
-
-				for (int c=0; c< currentPlayer.getNoTerritoriesOwned() ; c++) {
-					while ( ((Country)((Vector)currentPlayer.getTerritoriesOwned()).elementAt(c)).getArmies() >= m.getNoofarmies() )
-					{n++;
-						break;
-					}
-
-				}
-				if (n >= m.getNoofcountries() ) {
-
-					// yay you have won
-					result=true;
-
-				}
-				break;
-			}
-			while (
-					(m.getContinent1() !=null) && // this means its a continent mission
-
-							checkPlayerOwnesContinentForMission(m.getContinent1(),1) &&
-							checkPlayerOwnesContinentForMission(m.getContinent2(),2) &&
-							checkPlayerOwnesContinentForMission(m.getContinent3(),3)
-
-					) {
-
-				// yay you have won
-				result=true;
-				break;
-
-			}
+			checkPlayerWon4();
+			
 
 		}
 
@@ -1795,14 +1785,8 @@ transient - A keyword in the Java programming language that indicates that a fie
 				else { StringTokenizer st = new StringTokenizer(input);
 }
          }
-         public void loadMap3(){
-             
-         
-            if(mode.equals("files")) {
-                 String input = null;
-					//System.out.print("Adding files\n"); // testing
-                     
-				if (mode.equals("continents")) {
+         public void loadMap5(){
+             if (mode.equals("continents")) {
 					//System.out.print("Adding continents\n"); // testing
 
 					String id=st.nextToken(); //System.out.print(name+"\n"); // testing
@@ -1831,7 +1815,16 @@ transient - A keyword in the Java programming language that indicates that a fie
 					}
 
 				}
-				else if (mode.equals("countries")) {
+         }
+         public void loadMap3(){
+             
+         
+            if(mode.equals("files")) {
+                 String input = null;
+					//System.out.print("Adding files\n"); // testing
+                      loadMap5();
+				
+				if (mode.equals("countries")) {
 					//System.out.print("Adding countries\n"); // testing
 
 					int color = Integer.parseInt(st.nextToken());
@@ -2137,6 +2130,71 @@ RiskGame returnvalue = setCardsfile( input.substring(4) );
 	 * Loads the cards
 	 * @throws Exception There was a error
 	 */
+        public void loadCards9(){
+           
+					int s1 = Integer.parseInt(st.nextToken());
+					Player p = null;
+
+					loadCards3();
+
+					int noc = Integer.parseInt(st.nextToken());
+					int noa = Integer.parseInt(st.nextToken());
+
+					String s4 = st.nextToken();
+					String s5 = st.nextToken();
+					String s6 = st.nextToken();
+
+					Continent c1 = getMissionContinentfromString( s4 );
+					Continent c2 = getMissionContinentfromString( s5 );
+					Continent c3 = getMissionContinentfromString( s6 );
+
+					String missioncode=s1+"-"+noc+"-"+noa+"-"+s4+"-"+s5+"-"+s6;
+            boolean rawLoad;
+					String description=rawLoad?null:MapTranslator.getTranslatedMissionName(missioncode);
+
+					while (description==null) {
+						description="";
+						while (st.hasMoreElements()) {
+							description = description +("".equals(description)?"":" ")+ st.nextToken();
+						}
+						break;
+					}
+
+					while (p!=null && !rawLoad) {
+
+				loadCards4();
+					}
+
+				loadCards7();
+        }
+        public void loadCards8(){
+            String mode;
+            String st;
+            if (mode.equals("cards")) {
+					//System.out.print("Adding cards\n"); // testing
+                                       loadCards2();
+					String name=st.nextToken(); //System.out.print(name+"\n"); // testing
+
+				
+
+					loadCards5();
+
+				}
+        }
+         public void loadCards7(){
+            boolean rawLoad;
+            int s1;
+             	if ( rawLoad || s1 <= Players.size() ) {
+
+						//System.out.print(description+"\n"); // testing
+						Mission mission = new Mission(p, noc, noa, c1, c2, c3, description);
+						Missions.add(mission);
+					}
+					else {
+						System.out.print("NOT adding this mission as it refures to an unused player\n"); // testing
+					}
+                
+         }
         public void loadCards6(){
             String mode = input.substring(1, input.length()-1); // set mode to the name of the section
             switch (mode) {
@@ -2247,62 +2305,12 @@ RiskGame returnvalue = setCardsfile( input.substring(4) );
 
 				loadCards1();
 
-				if (mode.equals("cards")) {
-					//System.out.print("Adding cards\n"); // testing
-                                       loadCards2();
-					String name=st.nextToken(); //System.out.print(name+"\n"); // testing
-
-				
-
-					loadCards5();
-
-				}
-				else if (mode.equals("missions")) {
+				loadCards8();
+				 if (mode.equals("missions")) {
 					//System.out.print("Adding Mission\n"); // testing
 
 					//boolean add=true;
-
-					int s1 = Integer.parseInt(st.nextToken());
-					Player p = null;
-
-					loadCards3();
-
-					int noc = Integer.parseInt(st.nextToken());
-					int noa = Integer.parseInt(st.nextToken());
-
-					String s4 = st.nextToken();
-					String s5 = st.nextToken();
-					String s6 = st.nextToken();
-
-					Continent c1 = getMissionContinentfromString( s4 );
-					Continent c2 = getMissionContinentfromString( s5 );
-					Continent c3 = getMissionContinentfromString( s6 );
-
-					String missioncode=s1+"-"+noc+"-"+noa+"-"+s4+"-"+s5+"-"+s6;
-					String description=rawLoad?null:MapTranslator.getTranslatedMissionName(missioncode);
-
-					while (description==null) {
-						description="";
-						while (st.hasMoreElements()) {
-							description = description +("".equals(description)?"":" ")+ st.nextToken();
-						}
-						break;
-					}
-
-					while (p!=null && !rawLoad) {
-
-				loadCards4();
-					}
-
-					if ( rawLoad || s1 <= Players.size() ) {
-
-						//System.out.print(description+"\n"); // testing
-						Mission mission = new Mission(p, noc, noa, c1, c2, c3, description);
-						Missions.add(mission);
-					}
-					else {
-						System.out.print("NOT adding this mission as it refures to an unused player\n"); // testing
-					}
+                                    loadCards9();
 
 				}
 				else if (mode.equals("newsection")) {
@@ -2352,6 +2360,35 @@ RiskGame returnvalue = setCardsfile( input.substring(4) );
 	 * @return boolean Return trues if missions are supported
 	 * @throws Exception The file cannot be found
 	 */
+        public boolean setCardsfile2(){
+            String input;
+            String mode;
+            if (mode.equals("newsection")) {
+
+					mode = input.substring(1, input.length()-1); // set mode to the name of the section
+
+					if (mode.equals("cards")) {
+
+                                            boolean yescards = true;
+
+					}
+					else if (mode.equals("missions")) {
+
+                                            boolean yesmissions = true;
+
+					}
+				}
+            return false;
+        }
+        public boolean setCardsfile1(){
+            String input;
+            if (input.charAt(0)=='[' && input.charAt( input.length()-1 )==']') {
+                String mode = "newsection";
+				}
+				else { StringTokenizer st = new StringTokenizer(input);
+}
+            return false;
+        }
 	public boolean setCardsfile(String f) throws Exception {
 
 
@@ -2397,28 +2434,11 @@ RiskGame returnvalue = setCardsfile( input.substring(4) );
 			}
 			else {
 
-				if (input.charAt(0)=='[' && input.charAt( input.length()-1 )==']') {
-					mode="newsection";
-				}
-				else { st = new StringTokenizer(input); }
+				setCardsfile1();
 
 
 
-				if (mode.equals("newsection")) {
-
-					mode = input.substring(1, input.length()-1); // set mode to the name of the section
-
-					if (mode.equals("cards")) {
-
-						yescards=true;
-
-					}
-					else if (mode.equals("missions")) {
-
-						yesmissions=true;
-
-					}
-				}
+				setCardsfile2();
 
 
 			}
@@ -2856,6 +2876,30 @@ System.out.print(str+"]\n");
 	 * Gets a cards
 	 * @return Card Return the card you are looking for, if it exists. Otherwise returns null
 	 */
+        public Card[] getCards1(){
+            int a;
+            String name;
+            switch (a) {
+                case 0:
+            {
+                String name1;
+                name = name1;
+            }
+                    break;
+                case 1:
+            {
+                String name2;
+                name = name2;
+            }
+                    break;
+                default:
+            {
+                String name3;
+                name = name3;
+            }
+                    break;
+            }
+        }
 	public Card[] getCards(String name1,String name2,String name3) {
 
 		Card[] c = new Card[3];
@@ -2866,9 +2910,7 @@ System.out.print(str+"]\n");
 
 			String name;
 
-			if (a==0) { name = name1; }
-			else if (a==1) { name = name2; }
-			else { name = name3; } // if (a==2)
+			getCards1(); // if (a==2)
 
 			for (int b=0; b< playersCards.size(); b++) {
 
