@@ -288,8 +288,8 @@ transient - A keyword in the Java programming language that indicates that a fie
 	 */
 	public boolean addPlayer(int type, String name, int color, String a) {
 		if (gameState==STATE_NEW_GAME ) { // && !name.equals("neutral") && !(color==Color.gray)
-
-			for (int c=0; c< Players.size() ; c++) {
+                        int size = Players.size();
+			for (int c=0; c< size ; c++) {
 				if (( name.equals(((Player)Players.elementAt(c)).getName() )) || (color ==  ((Player)Players.elementAt(c)).getColor() )) return false;
 			}
 
@@ -310,8 +310,8 @@ transient - A keyword in the Java programming language that indicates that a fie
 		if (gameState==STATE_NEW_GAME) {
 
 			int n=-1;
-
-			for (int c=0; c< Players.size() ; c++) {
+                        int size =  Players.size() ;
+			for (int c=0; c< size ; c++) {
 				if (name.equals( ((Player)Players.elementAt(c)).getName() )) n=c;
 			}
 			if (n==-1) {
@@ -1643,13 +1643,9 @@ transient - A keyword in the Java programming language that indicates that a fie
                         checkPlayerWon1();
                         return false;
         }
-	public boolean checkPlayerWon() {
-
-		boolean result=false;
-
-		// check if the player has won
-		int won=0;
-		for (int c=0; c< Continents.length ; c++) {
+        public boolean checkPlayerWon5(){
+            int won;
+            for (int c=0; c< Continents.length ; c++) {
 
 			if ( Continents[c].isOwned(currentPlayer) ) {
 				won++;
@@ -1658,13 +1654,22 @@ transient - A keyword in the Java programming language that indicates that a fie
 		}
 		if (won == Continents.length ) {
 
-			result=true;
-			//System.out.print("The Game Is Over, "+currentPlayer.getName()+" has won!\n");
+                boolean result = true;
+                //System.out.print("The Game Is Over, "+currentPlayer.getName()+" has won!\n");
 
 		}
+                return false;
+        }
+	public boolean checkPlayerWon() {
+
+		boolean result=false;
+
+		// check if the player has won
+		int won=0;
+		checkPlayerWon5();
 
 	// check if the player has won capital risk!
-		else if (getSetupDone() && gameMode==MODE_CAPITAL && currentPlayer.getCapital() !=null ) {
+		if (getSetupDone() && gameMode==MODE_CAPITAL && currentPlayer.getCapital() !=null ) {
 
 		checkPlayerWon3();
 
