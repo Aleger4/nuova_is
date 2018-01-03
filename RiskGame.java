@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.io.PrintStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -1767,16 +1768,15 @@ transient - A keyword in the Java programming language that indicates that a fie
 	 */
 	public void loadMap() throws Exception {
 		loadMap(true, null);
-	}
-
-	public void loadMap(boolean cleanLoad, BufferedReader bufferin) throws Exception {
-
-		MapTranslator.setMap( mapfile );
+	} 
+        public void loadMap1(){
+            MapTranslator.setMap( mapfile );
 
 		StringTokenizer st=null;
 
 		Vector Countries;
 		Vector Continents;
+            boolean cleanLoad = false;
 		if (cleanLoad) {
 			Countries = new Vector();
 			Continents = new Vector();
@@ -1785,43 +1785,24 @@ transient - A keyword in the Java programming language that indicates that a fie
 			Countries = new Vector(Arrays.asList(this.Countries));
 			Continents = new Vector(Arrays.asList(this.Continents));
 		}
-
-		int mapVer = 1;
-		//System.out.print("Starting Load Map...\n");
-		int countryCount = 0;
-		if (bufferin == null) {
-			bufferin=RiskUtil.readMap( RiskUtil.openMapStream(mapfile) );
-		}
-
-		String input = bufferin.readLine();
-		String mode = "none";
-
-		while(input != null) {
-
-			if (input.equals("") || input.charAt(0)==';') {
-				// do nothing
-				//System.out.print("Nothing\n"); // testing
-			}
-			else {
-				//System.out.print("Something found\n"); // testing
-
-				if (input.charAt(0)=='[' && input.charAt( input.length()-1 )==']') {
-					//System.out.print("Something beggining with [ and ending with ] found\n"); // testing
-					mode="newsection";
+        }
+         public void loadMap2(){
+            String input = null;
+             if (input.charAt(0)=='[' && input.charAt( input.length()-1 )==']') {
+                 //System.out.print("Something beggining with [ and ending with ] found\n"); // testing
+                 String mode = "newsection";
 				}
-				else { st = new StringTokenizer(input); }
-
-				if (mode.equals("files")) {
+				else { StringTokenizer st = new StringTokenizer(input);
+}
+         }
+         public void loadMap3(){
+             
+         
+            if(mode.equals("files")) {
+                 String input = null;
 					//System.out.print("Adding files\n"); // testing
-
-					if ( input.startsWith("pic ") )  { ImagePic = input.substring(4); } //System.out.print("file: ImagePic added!\n"); // testing
-					else if ( input.startsWith("map ") ) { ImageMap = input.substring(4); } //System.out.print("file: ImageMap added!\n"); // testing
-					else if ( input.startsWith("crd ") ) { }
-					else if ( input.startsWith("prv ") ) { }
-					else { throw new Exception("error with files section in map file: "+input); }
-
-				}
-				else if (mode.equals("continents")) {
+                     
+				if (mode.equals("continents")) {
 					//System.out.print("Adding continents\n"); // testing
 
 					String id=st.nextToken(); //System.out.print(name+"\n"); // testing
@@ -1840,7 +1821,8 @@ transient - A keyword in the Java programming language that indicates that a fie
 
 					}
 
-					while( st.hasMoreTokens() ) { throw new Exception("unknown item found in map file: "+ st.nextToken() ); }
+					while( st.hasMoreTokens() ) { System.out.println("unknown item found in map file: "+ st.nextToken() ); }
+                 boolean cleanLoad = false;
 
 					while(cleanLoad) {
 						Continent continent = new Continent(id, name, noa, color);
@@ -1862,10 +1844,13 @@ transient - A keyword in the Java programming language that indicates that a fie
 					int x = Integer.parseInt(st.nextToken());
 					int y = Integer.parseInt(st.nextToken());
 
-					while( st.hasMoreTokens() ) { throw new Exception("unknown item found in map file: "+ st.nextToken() ); }
-					while ( ++countryCount != color ) { throw new Exception("unexpected number found in map file: "+color ); }
+					while( st.hasMoreTokens() ) { System.out.println("unknown item found in map file: " );
+}
+                     int countryCount = 0;
+					while ( ++countryCount != color ) { System.out.println("unexpected number found in map file: "+color ); }
 
 					Country country = null;
+                     boolean cleanLoad = false;
 					while (cleanLoad) {
 						country = new Country();
 						Countries.add(country);
@@ -1884,7 +1869,11 @@ transient - A keyword in the Java programming language that indicates that a fie
 					country.setX(x);
 					country.setY(y);
 				}
-				else if (mode.equals("borders")) {
+         }
+         }
+         public void loadMap4(){
+            String mode = null;
+             if (mode.equals("borders")) {
 					//System.out.print("Adding borders\n"); // testing
 
 					int country=Integer.parseInt( st.nextToken() ); //System.out.print(country+"\n"); // testing
@@ -1905,12 +1894,46 @@ transient - A keyword in the Java programming language that indicates that a fie
 						break;
 					}
 					while(!(mode.equals("files"))) {
-						throw new Exception("unknown section found in map file: "+mode);
+						System.out.println("unknown section found in map file: "+mode);
 					}
 
 				}
+         }
+	public void loadMap(boolean cleanLoad, BufferedReader bufferin) throws Exception {
+
+		MapTranslator.setMap( mapfile );
+
+		StringTokenizer st=null;
+
+		Vector Countries = null;
+		Vector Continents = null;
+		loadMap1();
+
+		int mapVer = 1;
+		//System.out.print("Starting Load Map...\n");
+		int countryCount = 0;
+		if (bufferin == null) {
+			bufferin=RiskUtil.readMap( RiskUtil.openMapStream(mapfile) );
+		}
+
+		String input = bufferin.readLine();
+		String mode = "none";
+
+		while(input != null) {
+
+			if (input.equals("") || input.charAt(0)==';') {
+				// do nothing
+				//System.out.print("Nothing\n"); // testing
+			}
+			else {
+				//System.out.print("Something found\n"); // testing
+                               loadMap2();
+				
+                               loadMap3();
+			       loadMap4();
+				
 				// we are not in any section
-				else if (input.startsWith("ver ")) {
+				if (input.startsWith("ver ")) {
 					mapVer = Integer.parseInt(input.substring(4, input.length()));
 				}
 //				else if (input.equals("test")) {
@@ -1931,7 +1954,7 @@ transient - A keyword in the Java programming language that indicates that a fie
 
 		int gameVer = getVersion();
 		if (gameVer > mapVer) {
-			throw new Exception(mapfile + " too old, ver " + mapVer + ". game saved with ver " + gameVer);
+			System.err.println(mapfile + " too old, ver " + mapVer + ". game saved with ver " + gameVer);
 		}
 
 		if (cleanLoad) {
@@ -1947,6 +1970,71 @@ transient - A keyword in the Java programming language that indicates that a fie
 	 * @return boolean Return trues if missions are supported
 	 * @throws Exception The file cannot be found
 	 */
+        public boolean setMapfile4(){
+            Object mode = null;
+            if (input.charAt(0)=='[' && input.charAt( input.length()-1 )==']') {
+					mode="newsection";
+				}
+                                 setMapfile2();
+				
+                                if ("borders".equals(mode)) {
+
+                boolean yesmap = true;
+
+				}
+				else if ("newsection".equals(mode)) {
+
+					mode = input.substring(1, input.length()-1); // set mode to the name of the section
+
+				}
+                                return false;
+        }
+        public boolean setMapfile3(){
+            	int space = input.indexOf(' ');
+
+					while(input.equals("test")) {
+
+						runmaptest = true;
+						break;
+
+					}
+					//else if (input.startsWith("name ")) {
+					//	mapName = input.substring(5,input.length());
+					//}
+					//else if (input.startsWith("ver ")) {
+					//        ver = Integer.parseInt( input.substring(4,input.length()) );
+					//}
+					while (space >= 0) {
+						String key = input.substring(0,space);
+						String value = input.substring(space+1);
+
+						properties.put(key, value);
+						break;
+					}
+                                        return false;
+        }
+        public boolean setMapfile2(){
+            Object mode = null;
+            if ("files".equals(mode)) {
+
+					if ( input.startsWith("pic ") ) { ImagePic = input.substring(4); }
+
+					else if ( input.startsWith("prv ") ) { previewPic = input.substring(4); }
+
+					else if ( input.startsWith("crd ") ) { boolean yescards = true;
+RiskGame returnvalue = setCardsfile( input.substring(4) );
+}
+
+				}
+            return false;
+        }
+        public boolean setMapfile1(){
+            boolean yesmap = false;
+            	if ( yesmap==false ) { System.err.println("error with map file"); }
+            boolean yescards = false;
+		if ( yescards==false ) {  System.err.println("cards file not specified in map file"); }
+            return false;
+        }
 	public boolean setMapfile(String f) throws Exception {
 
 		if (f.equals("default")) {
@@ -1987,61 +2075,20 @@ transient - A keyword in the Java programming language that indicates that a fie
 			}
 			else {
 
-				if (input.charAt(0)=='[' && input.charAt( input.length()-1 )==']') {
-					mode="newsection";
-				}
+				setMapfile4();
+				if (mode == null) {
 
-				if ("files".equals(mode)) {
-
-					if ( input.startsWith("pic ") ) { ImagePic = input.substring(4); }
-
-					else if ( input.startsWith("prv ") ) { previewPic = input.substring(4); }
-
-					else if ( input.startsWith("crd ") ) { yescards=true; returnvalue = setCardsfile( input.substring(4) ); }
-
-				}
-				else if ("borders".equals(mode)) {
-
-					yesmap=true;
-
-				}
-				else if ("newsection".equals(mode)) {
-
-					mode = input.substring(1, input.length()-1); // set mode to the name of the section
-
-				}
-				else if (mode == null) {
-
-					int space = input.indexOf(' ');
-
-					while(input.equals("test")) {
-
-						runmaptest = true;
-						break;
-
-					}
-					//else if (input.startsWith("name ")) {
-					//	mapName = input.substring(5,input.length());
-					//}
-					//else if (input.startsWith("ver ")) {
-					//        ver = Integer.parseInt( input.substring(4,input.length()) );
-					//}
-					while (space >= 0) {
-						String key = input.substring(0,space);
-						String value = input.substring(space+1);
-
-						properties.put(key, value);
-						break;
-					}
+				setMapfile3();
 					// else unknown section
 				}
 			}
 
 			input = bufferin.readLine(); // get next line
 		}
-
-		if ( yesmap==false ) { throw new Exception("error with map file"); }
-		if ( yescards==false ) { throw new Exception("cards file not specified in map file"); }
+                  setMapfile1();
+            
+        
+	
 
 		mapfile = f;
 		bufferin.close();
@@ -2090,6 +2137,89 @@ transient - A keyword in the Java programming language that indicates that a fie
 	 * Loads the cards
 	 * @throws Exception There was a error
 	 */
+        public void loadCards6(){
+            String mode = input.substring(1, input.length()-1); // set mode to the name of the section
+            switch (mode) {
+            //System.out.print("Section: cards found\n"); // testing
+                case "cards":
+                    break;
+            //System.out.print("Section: missions found\n"); // testing
+                case "missions":
+                    break;
+                default:
+                    System.err.println("unknown section found in cards file: "+mode);
+                    break;
+            }
+        }
+        public void loadCards5(){
+                   if ( st.hasMoreTokens() ) { System.err.println("unknown item found in cards file: "+ st.nextToken() ); } 
+                }
+        public void loadCards4(){
+                  		String name = p.getName();
+
+						String color = "color."+ColorUtil.getStringForColor( p.getColor() );
+						java.util.ResourceBundle trans = TranslationBundle.getBundle();
+						try { // in Java 1.4 no if (trans.containsKey(color))
+							name = trans.getString(color)+" "+name;
+						}
+						catch (Exception ex) { }
+            String s1;
+
+						String oldkey ="PLAYER"+s1;
+						String newkey = "{"+oldkey+"}";
+            String description;
+						while (description.indexOf(newkey) >= 0) {
+							// DefaultCards_XX.properties uses this format
+							description = RiskUtil.replaceAll(description, newkey, name );
+							break;
+						}
+						while (description.indexOf(oldkey) >= 0) {
+							// many maps still have this format for missions
+							description = RiskUtil.replaceAll(description, oldkey, name );
+							break;
+						}
+						while ((!(description.indexOf(oldkey) >= 0))&& (!(description.indexOf(newkey) >= 0))){
+							System.err.println("newkey: "+newkey+" and oldkey: "+oldkey+" not found in mission: "+description);
+						}
+
+
+						break;  
+                }
+        public void loadCards3(){
+            int s1 = 0;
+                    while (s1==0 || s1>Players.size() ) {
+                Object p = null;
+						break;
+					}
+					while (!(s1==0 || s1>Players.size() )) {
+						p = (Player)Players.elementAt( s1-1 );
+					}
+                }
+        public void loadCards2(){
+                    	if (name.equals(Card.WILDCARD)) {
+						Card card = new Card(name, null);
+						Cards.add(card);
+					}
+					else if ( name.equals(Card.CAVALRY) || name.equals(Card.INFANTRY) || name.equals(Card.CANNON) ) {
+						int country=Integer.parseInt( st.nextToken() );
+
+						//System.out.print( Countries[ country - 1 ].getName() +"\n"); // testing
+						Card card = new Card(name, Countries[ country - 1 ]);
+						Cards.add(card);
+					}
+					else {
+						System.err.println("unknown item found in cards file: "+name);
+					}
+                }
+        public void loadCards1(){
+            String input = null;
+                    if (input.charAt(0)=='[' && input.charAt( input.length()-1 )==']') {
+                        //System.out.print("Something beggining with [ and ending with ] found\n"); // testing
+                        String mode = "newsection";
+				}
+				else { StringTokenizer st = new StringTokenizer(input);
+}
+                }
 	public void loadCards(boolean rawLoad) throws Exception {
 
 		StringTokenizer st=null;
@@ -2115,33 +2245,16 @@ transient - A keyword in the Java programming language that indicates that a fie
 
 				//System.out.print("Something found\n"); // testing
 
-				if (input.charAt(0)=='[' && input.charAt( input.length()-1 )==']') {
-					//System.out.print("Something beggining with [ and ending with ] found\n"); // testing
-					mode="newsection";
-				}
-				else { st = new StringTokenizer(input); }
+				loadCards1();
 
 				if (mode.equals("cards")) {
 					//System.out.print("Adding cards\n"); // testing
-
+                                       loadCards2();
 					String name=st.nextToken(); //System.out.print(name+"\n"); // testing
 
-					if (name.equals(Card.WILDCARD)) {
-						Card card = new Card(name, null);
-						Cards.add(card);
-					}
-					else if ( name.equals(Card.CAVALRY) || name.equals(Card.INFANTRY) || name.equals(Card.CANNON) ) {
-						int country=Integer.parseInt( st.nextToken() );
+				
 
-						//System.out.print( Countries[ country - 1 ].getName() +"\n"); // testing
-						Card card = new Card(name, Countries[ country - 1 ]);
-						Cards.add(card);
-					}
-					else {
-						throw new Exception("unknown item found in cards file: "+name);
-					}
-
-					if ( st.hasMoreTokens() ) { throw new Exception("unknown item found in cards file: "+ st.nextToken() ); }
+					loadCards5();
 
 				}
 				else if (mode.equals("missions")) {
@@ -2152,13 +2265,7 @@ transient - A keyword in the Java programming language that indicates that a fie
 					int s1 = Integer.parseInt(st.nextToken());
 					Player p = null;
 
-					while (s1==0 || s1>Players.size() ) {
-						p = null;
-						break;
-					}
-					while (!(s1==0 || s1>Players.size() )) {
-						p = (Player)Players.elementAt( s1-1 );
-					}
+					loadCards3();
 
 					int noc = Integer.parseInt(st.nextToken());
 					int noa = Integer.parseInt(st.nextToken());
@@ -2184,33 +2291,7 @@ transient - A keyword in the Java programming language that indicates that a fie
 
 					while (p!=null && !rawLoad) {
 
-						String name = p.getName();
-
-						String color = "color."+ColorUtil.getStringForColor( p.getColor() );
-						java.util.ResourceBundle trans = TranslationBundle.getBundle();
-						try { // in Java 1.4 no if (trans.containsKey(color))
-							name = trans.getString(color)+" "+name;
-						}
-						catch (Exception ex) { }
-
-						String oldkey ="PLAYER"+s1;
-						String newkey = "{"+oldkey+"}";
-						while (description.indexOf(newkey) >= 0) {
-							// DefaultCards_XX.properties uses this format
-							description = RiskUtil.replaceAll(description, newkey, name );
-							break;
-						}
-						while (description.indexOf(oldkey) >= 0) {
-							// many maps still have this format for missions
-							description = RiskUtil.replaceAll(description, oldkey, name );
-							break;
-						}
-						while ((!(description.indexOf(oldkey) >= 0))&& (!(description.indexOf(newkey) >= 0))){
-							System.err.println("newkey: "+newkey+" and oldkey: "+oldkey+" not found in mission: "+description);
-						}
-
-
-						break;
+				loadCards4();
 					}
 
 					if ( rawLoad || s1 <= Players.size() ) {
@@ -2220,28 +2301,18 @@ transient - A keyword in the Java programming language that indicates that a fie
 						Missions.add(mission);
 					}
 					else {
-						//System.out.print("NOT adding this mission as it refures to an unused player\n"); // testing
+						System.out.print("NOT adding this mission as it refures to an unused player\n"); // testing
 					}
 
 				}
 				else if (mode.equals("newsection")) {
 
-					mode = input.substring(1, input.length()-1); // set mode to the name of the section
-
-					if (mode.equals("cards") ) {
-						//System.out.print("Section: cards found\n"); // testing
-					}
-					else if (mode.equals("missions") ) {
-						//System.out.print("Section: missions found\n"); // testing
-					}
-					else {
-						throw new Exception("unknown section found in cards file: "+mode);
-					}
+		               loadCards6();
 
 				}
 				else {
 
-					throw new Exception("unknown item found in cards file: "+input);
+					System.err.println("unknown item found in cards file: "+input);
 
 				}
 
