@@ -1556,31 +1556,14 @@ transient - A keyword in the Java programming language that indicates that a fie
 	 * Check if a player has won the game
 	 * @return boolean Returns true if the player has won the game, returns false otherwise
 	 */
-        public boolean checkPlayerWon2() {
-            	int capitalcount=0;
+        
+        
+	public boolean checkPlayerWon() {
 
-			if ( currentPlayer==((Country)currentPlayer.getCapital()).getOwner() ) {
+		boolean result=false;
 
-				for (int c=0; c< Players.size() ; c++) {
-
-					while ( ((Vector)currentPlayer.getTerritoriesOwned()).contains((Country)((Player)Players.elementAt(c)).getCapital()) ) {
-						capitalcount++;
-						break;
-					}
-
-				}
-
-			}
-
-			if ( capitalcount==Players.size() ) {
-                        boolean result = true;
-			}
-            return false;
-
-		
-        }
-        public boolean checkPlayerWon1() {
-            int won=0;
+		// check if the player has won
+		int won=0;
 		for (int c=0; c< Continents.length ; c++) {
 
 			if ( Continents[c].isOwned(currentPlayer) ) {
@@ -1588,16 +1571,6 @@ transient - A keyword in the Java programming language that indicates that a fie
 			}
 
 		}
-            return false;
-        }
-        
-	public boolean checkPlayerWon() {
-
-		boolean result=false;
-                 checkPlayerWon1();
-                 int won=0;
-		// check if the player has won
-		
 		if (won == Continents.length ) {
 
 			result=true;
@@ -1635,10 +1608,29 @@ transient - A keyword in the Java programming language that indicates that a fie
 
 		// check if the player has won capital risk!
 		else if (getSetupDone() && gameMode==MODE_CAPITAL && currentPlayer.getCapital() !=null ) {
-                         checkPlayerWon2();
-		
+
+			int capitalcount=0;
+
+			if ( currentPlayer==((Country)currentPlayer.getCapital()).getOwner() ) {
+
+				for (int c=0; c< Players.size() ; c++) {
+
+					while ( ((Vector)currentPlayer.getTerritoriesOwned()).contains((Country)((Player)Players.elementAt(c)).getCapital()) ) {
+						capitalcount++;
+						break;
+					}
+
+				}
+
+			}
+
+			if ( capitalcount==Players.size() ) {
+				result=true;
+			}
+
+		}
 		// check if the player has won mission risk!
-		if (getSetupDone() && gameMode==MODE_SECRET_MISSION ) {
+		else if (getSetupDone() && gameMode==MODE_SECRET_MISSION ) {
 
 			Mission m = currentPlayer.getMission();
 
