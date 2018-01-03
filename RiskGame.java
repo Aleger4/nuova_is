@@ -777,9 +777,8 @@ transient - A keyword in the Java programming language that indicates that a fie
 	 * @param cards
 	 * @return
 	 */
-	public int getBestTrade(List<Card> cards, Card[] bestResult) {
-		Map<String, List<Card>> cardTypes = new HashMap<String, List<Card>>();
-		for (Card card : cards) {
+        public int getBestTrade1(){
+            for (Card card : cards) {
 			List<Card> cardType = cardTypes.get(card.getName());
 			if (cardType == null) {
 				cardType = new ArrayList<Card>();
@@ -787,62 +786,96 @@ transient - A keyword in the Java programming language that indicates that a fie
 			}
 			cardType.add(card);
 		}
-		Card carda = null;
-		Card cardb = null;
-		Card cardc = null;
-		int bestValue = 0;
-		if (cardTypes.size() >= 3) {
-			carda = getCard(cardTypes, Card.CANNON);
+            return 0;
+        }
+        public int getBestTrade2(){
+            Object bestResult = null;
+            RiskGame carda = getCard(cardTypes, Card.CANNON);
 			if (carda == null) {
 				carda = getCard(cardTypes, Card.WILDCARD);
 			}
-			cardb = getCard(cardTypes, Card.CAVALRY);
+            RiskGame cardb = getCard(cardTypes, Card.CAVALRY);
 			if (cardb == null) {
 				cardb = getCard(cardTypes, Card.WILDCARD);
 			}
-			cardc = getCard(cardTypes, Card.INFANTRY);
+            RiskGame cardc = getCard(cardTypes, Card.INFANTRY);
 			if (cardc == null) {
 				cardc = getCard(cardTypes, Card.WILDCARD);
 			}
-			bestValue = getTradeAbsValue( carda.getName(), cardb.getName(), cardc.getName(), getCardMode());
+            RiskGame bestValue = getTradeAbsValue( carda.getName(), cardb.getName(), cardc.getName(), getCardMode());
 			if (bestValue > 0) {
+                
 				if (bestResult == null) {
-					return bestValue;
+					return 2;
 				}
-				bestResult[0] = carda;
-				bestResult[1] = cardb;
-				bestResult[2] = cardc;
+				
 			}
-		}
-		List<Card> wildCards = cardTypes.get(Card.WILDCARD);
-		int wildCardCount = wildCards==null?0:wildCards.size();
-		for (Map.Entry<String, List<Card>> entry : cardTypes.entrySet()) {
-			carda = null;
+            return 0;
+        }
+                public int getBestTrade3(){
+            Object carda = null;
+            Object cardb = null;
+            Object cardc = null;
 			if (entry.getKey().equals(Card.WILDCARD)) {
+                int wildCardCount = 0;
 				if (wildCardCount >= 3) {
 					carda = wildCards.get(0);
 					cardb = wildCards.get(1);
 					cardc = wildCards.get(2);
 				}
-			} else {
-				List<Card> cardList = entry.getValue();
-				if (cardList.size() + wildCardCount >= 3) {
+        }
+            return 0;
+        
+        }
+       public int getBestTrade4(){
+            int val = getTradeAbsValue( carda.getName(), cardb.getName(), cardc.getName(), getCardMode());
+            int bestValue = 0;
+				if (val > bestValue) {
+					bestValue = val;
+                Object bestResult = null;
+					if (bestResult == null) {
+						return bestValue;
+					}
+					
+				}
+            return 0;
+        }
+       public int getBestTrade5(){
+            int wildCardCount = 0;
+            List<Card> cardList = entry.getValue();
+             Object carda = null;
+            Object cardb = null;
+            Object cardc = null;
+           if (cardList.size() + wildCardCount >= 3) {
 					carda = cardList.get(0);
 					cardb = cardList.size()>1?cardList.get(1):wildCards.get(0);
 					cardc = cardList.size()>2?cardList.get(2):wildCards.get(2-cardList.size());
 				}
+            return 0;
+       }
+	public int getBestTrade(List<Card> cards, Card[] bestResult) {
+		Map<String, List<Card>> cardTypes = new HashMap<String, List<Card>>();
+                getBestTrade1();
+		
+		Card carda = null;
+		Card cardb = null;
+		Card cardc = null;
+		int bestValue = 0;
+		if (cardTypes.size() >= 3) {
+		getBestTrade2();
+		}
+		List<Card> wildCards = cardTypes.get(Card.WILDCARD);
+		int wildCardCount = wildCards==null?0:wildCards.size();
+		for (Map.Entry<String, List<Card>> entry : cardTypes.entrySet()) {
+                   
+			if(carda == null){
+                     getBestTrade3();
+				
+				getBestTrade5();
 			}
+                     
 			if (carda != null) {
-				int val = getTradeAbsValue( carda.getName(), cardb.getName(), cardc.getName(), getCardMode());
-				if (val > bestValue) {
-					bestValue = val;
-					if (bestResult == null) {
-						return bestValue;
-					}
-					bestResult[0] = carda;
-					bestResult[1] = cardb;
-					bestResult[2] = cardc;
-				}
+				 getBestTrade4();
 			}
 		}
 		return bestValue;
@@ -915,24 +948,23 @@ transient - A keyword in the Java programming language that indicates that a fie
 	 * @param n Number of armies the player wants to add to the country
 	 * @return boolean Returns true if the number of armies are added the country, returns false if the armies cannot be added to the territory
 	 */
-	public int placeArmy(Country t, int n) {
-
-		int done=0;
-
-		if ( gameState==STATE_PLACE_ARMIES ) {
-
-			if ( !getSetupDone() ) { // ie the initial setup has not been compleated
-				if (n != 1) return 0;
-				// if it has the player as a owner
-				if ( t.getOwner()==currentPlayer ) {
-
-					while ( NoEmptyCountries() ) { // no empty country are found
+        public int placeArmy1(){
+            while ( NoEmptyCountries() ) { // no empty country are found
 						t.addArmy();
 						currentPlayer.loseExtraArmy(1);
-						done=1;
+                int done = 1;
 						break;
 						//System.out.print("army placed in: " + t.getName() + "\n"); // testing
 					}
+            return 0;
+        }
+        public int placeArmy2(){
+            int n = 0;
+            if (n != 1) return 0;
+				// if it has the player as a owner
+				if ( t.getOwner()==currentPlayer ) {
+
+					placeArmy1();
 
 				}
 				// if there is no owner
@@ -942,29 +974,28 @@ transient - A keyword in the Java programming language that indicates that a fie
 					currentPlayer.newCountry(t);
 					t.addArmy();
 					currentPlayer.loseExtraArmy(1);
-					done=1;
-					//System.out.print("country taken and army placed in: " + t.getName() + "\n"); // testing
+                int done = 1;
+                //System.out.print("country taken and army placed in: " + t.getName() + "\n"); // testing
 				}
+            return 0;
 
-			}
-			else { // initial setup is completed
-
-				// if it has the player as a owner
-				if ( t.getOwner()==currentPlayer && currentPlayer.getExtraArmies() >=n ) {
+        }
+        public int placeArmy3(){
+            boolean n = false;
+            if ( t.getOwner()==currentPlayer && currentPlayer.getExtraArmies() >=n ) {
 
 					currentPlayer.currentStatistic.addReinforcements(n);
 
 					t.addArmies(n);
 					currentPlayer.loseExtraArmy(n);
-					//System.out.print("army placed in: " + t.getName() + "\n"); // testing
-					done=1;
+                //System.out.print("army placed in: " + t.getName() + "\n"); // testing
+                int done = 1;
 
 				}
-			}
-
-			if (done==1) {
-
-				if (getSetupDone() ) { // ie the initial setup has been compleated
+            return 0;
+        }
+        public int placeArmy4(){
+            if (getSetupDone() ) { // ie the initial setup has been compleated
 					while ( currentPlayer.getExtraArmies()==0 ) { gameState=STATE_ATTACKING;
 						break;
 					}
@@ -983,8 +1014,28 @@ transient - A keyword in the Java programming language that indicates that a fie
 				}
 
 				if ( checkPlayerWon() ) {
-					done=2;
+                int done = 2;
 				}
+            return 0;
+        }
+	public int placeArmy(Country t, int n) {
+
+		int done=0;
+
+		if ( gameState==STATE_PLACE_ARMIES ) {
+
+			if ( !getSetupDone() ) { // ie the initial setup has not been compleated
+				placeArmy2();
+			}
+			else { // initial setup is completed
+                                placeArmy3();
+				// if it has the player as a owner
+				
+			}
+
+			if (done==1) {
+                                  placeArmy4();
+				
 
 			}
 
@@ -997,9 +1048,8 @@ transient - A keyword in the Java programming language that indicates that a fie
 	 * Automatically places an army on an unoccupied country
 	 * @return int Returns the country id which an army was added to
 	 */
-	public int getRandomCountry() {
-		if (gameState==STATE_PLACE_ARMIES) {
-			if ( NoEmptyCountries() ) {
+        public int getRandomCountry2() {
+            if ( NoEmptyCountries() ) {
 				List countries = currentPlayer.getTerritoriesOwned();
 				return ((Country)countries.get( r.nextInt(countries.size()) )).getColor();
 			}
@@ -1008,7 +1058,18 @@ transient - A keyword in the Java programming language that indicates that a fie
 				int a = r.nextInt(Countries.length);
 				boolean done = false;
 				for (int c=a; c < Countries.length ; c++) {
-					if ( Countries[c].getOwner() == null ) {
+                                    getRandomCountry1();
+					
+				}
+			}
+            return 0;
+            
+        }
+        public int getRandomCountry1() {
+            List countries = currentPlayer.getTerritoriesOwned();
+            int c = 0;
+            boolean done = false;
+            if ( Countries[c].getOwner() == null ) {
 						return Countries[c].getColor();
 					}
 					else if ( c == Countries.length-1 && !done ) {
@@ -1016,10 +1077,13 @@ transient - A keyword in the Java programming language that indicates that a fie
 						done = true;
 					}
 					else if ( c == Countries.length-1 && done ) {
-						break;
+						System.out.println("error");
 					}
-				}
-			}
+            return 0;
+        }
+	public int getRandomCountry() {
+		if (gameState==STATE_PLACE_ARMIES) {
+			getRandomCountry2();
 		}
 		throw new IllegalStateException();
 	}
@@ -1151,49 +1215,10 @@ transient - A keyword in the Java programming language that indicates that a fie
 	 * @param defenderResults The results for the defender
 	 * @return int[] Returns an array which will determine the results of the attack
 	 */
-	public int[] battle(int[] attackerResults, int[] defenderResults) {
-
-		int[] result = new int[6];
-		result[0]=0; // worked or not
-		result[1]=0; // no of armies attacker lost
-		result[2]=0; // no of armies defender lost
-		result[3]=0; // did you win
-		result[4]=0; // min move
-		result[5]=0; // max move
-
-		if (gameState==STATE_DEFEND_YOURSELF) { // if we were in the defending phase
-			battleRounds++;
-
-			for (int aResult:attackerResults) {
-				attacker.getOwner().currentStatistic.addDice(aResult);
-			}
-			for (int aResult:defenderResults) {
-				defender.getOwner().currentStatistic.addDice(aResult);
-			}
-
-			// battle away!
-			for (int c=0; c< Math.min(attackerResults.length, defenderResults.length) ; c++) {
-
-				if (attackerResults[c] > defenderResults[c]) {
-					defender.looseArmy();
-					defender.getOwner().currentStatistic.addCasualty();
-					attacker.getOwner().currentStatistic.addKill();
-					result[2]++;
-				}
-				else {
-					attacker.looseArmy();
-					attacker.getOwner().currentStatistic.addCasualty();
-					defender.getOwner().currentStatistic.addKill();
-					result[1]++;
-				}
-
-			}
-
-			// if all the armies have been defeated
-			if (defender.getArmies() == 0) {
-
-				((Player)attacker.getOwner()).currentStatistic.addCountriesWon();
+        public int[] battle4(){
+            ((Player)attacker.getOwner()).currentStatistic.addCountriesWon();
 				((Player)defender.getOwner()).currentStatistic.addCountriesLost();
+            int[] result = null;
 
 				result[5]=attacker.getArmies()-1;
 
@@ -1214,9 +1239,18 @@ transient - A keyword in the Java programming language that indicates that a fie
 
 				// if the player has been eliminated
 				if ( lostPlayer.getNoTerritoriesOwned() == 0) {
+                                               battle3();
+				
 
-					result[3]=2;
+				}
 
+            return null;
+            
+        }
+        public int[] battle3(){
+            int[] result = null;
+         	result[3]=2;
+                                   Player lostPlayer=(Player)defender.getOwner();
 					currentPlayer.addPlayersEliminated(lostPlayer);
 
 					while (lostPlayer.getCards().size() > 0) {
@@ -1233,9 +1267,65 @@ transient - A keyword in the Java programming language that indicates that a fie
 						tradeCap=true;
 						break;
 					}
-
+               return null;
+        }
+        public int[] battle2(){
+            int[] attackerResults = null;
+            int c = 0;
+            int[] defenderResults = null;
+            if (attackerResults[c] > defenderResults[c]) {
+					defender.looseArmy();
+					defender.getOwner().currentStatistic.addCasualty();
+					attacker.getOwner().currentStatistic.addKill();
+                int[] result = null;
+					result[2]++;
 				}
+				else {
+					attacker.looseArmy();
+					attacker.getOwner().currentStatistic.addCasualty();
+					defender.getOwner().currentStatistic.addKill();
+                int[] result = null;
+					result[1]++;
+				}
+            return null;
+        }
+        public int[] battle1(){
+            int[] attackerResults = null;
+            for (int aResult:attackerResults) {
+				attacker.getOwner().currentStatistic.addDice(aResult);
+			}
+            int[] defenderResults = null;
+			for (int aResult:defenderResults) {
+				defender.getOwner().currentStatistic.addDice(aResult);
+			}
+            return null;
+        }
+	public int[] battle(int[] attackerResults, int[] defenderResults) {
 
+		int[] result = new int[6];
+		result[0]=0; // worked or not
+		result[1]=0; // no of armies attacker lost
+		result[2]=0; // no of armies defender lost
+		result[3]=0; // did you win
+		result[4]=0; // min move
+		result[5]=0; // max move
+
+		if (gameState==STATE_DEFEND_YOURSELF) { // if we were in the defending phase
+			battleRounds++;
+
+			battle1();
+
+			// battle away!
+			for (int c=0; c< Math.min(attackerResults.length, defenderResults.length) ; c++) {
+
+				battle2();
+
+			}
+
+			// if all the armies have been defeated
+			if (defender.getArmies() == 0) {
+                                 battle4();
+				
 			}
 			else if (attacker.getArmies() == 1) {
 				gameState=STATE_ATTACKING;
@@ -1466,12 +1556,31 @@ transient - A keyword in the Java programming language that indicates that a fie
 	 * Check if a player has won the game
 	 * @return boolean Returns true if the player has won the game, returns false otherwise
 	 */
-	public boolean checkPlayerWon() {
+        public boolean checkPlayerWon2() {
+            	int capitalcount=0;
 
-		boolean result=false;
+			if ( currentPlayer==((Country)currentPlayer.getCapital()).getOwner() ) {
 
-		// check if the player has won
-		int won=0;
+				for (int c=0; c< Players.size() ; c++) {
+
+					while ( ((Vector)currentPlayer.getTerritoriesOwned()).contains((Country)((Player)Players.elementAt(c)).getCapital()) ) {
+						capitalcount++;
+						break;
+					}
+
+				}
+
+			}
+
+			if ( capitalcount==Players.size() ) {
+                        boolean result = true;
+			}
+            return false;
+
+		
+        }
+        public boolean checkPlayerWon1() {
+            int won=0;
 		for (int c=0; c< Continents.length ; c++) {
 
 			if ( Continents[c].isOwned(currentPlayer) ) {
@@ -1479,6 +1588,16 @@ transient - A keyword in the Java programming language that indicates that a fie
 			}
 
 		}
+            return false;
+        }
+        
+	public boolean checkPlayerWon() {
+
+		boolean result=false;
+                 checkPlayerWon1();
+                 int won=0;
+		// check if the player has won
+		
 		if (won == Continents.length ) {
 
 			result=true;
@@ -1516,29 +1635,10 @@ transient - A keyword in the Java programming language that indicates that a fie
 
 		// check if the player has won capital risk!
 		else if (getSetupDone() && gameMode==MODE_CAPITAL && currentPlayer.getCapital() !=null ) {
-
-			int capitalcount=0;
-
-			if ( currentPlayer==((Country)currentPlayer.getCapital()).getOwner() ) {
-
-				for (int c=0; c< Players.size() ; c++) {
-
-					while ( ((Vector)currentPlayer.getTerritoriesOwned()).contains((Country)((Player)Players.elementAt(c)).getCapital()) ) {
-						capitalcount++;
-						break;
-					}
-
-				}
-
-			}
-
-			if ( capitalcount==Players.size() ) {
-				result=true;
-			}
-
-		}
+                         checkPlayerWon2();
+		
 		// check if the player has won mission risk!
-		else if (getSetupDone() && gameMode==MODE_SECRET_MISSION ) {
+		if (getSetupDone() && gameMode==MODE_SECRET_MISSION ) {
 
 			Mission m = currentPlayer.getMission();
 
