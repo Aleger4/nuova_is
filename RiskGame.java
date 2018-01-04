@@ -681,19 +681,23 @@ transient - A keyword in the Java programming language that indicates that a fie
         }
         public int getTradeAbsValue3(){
             if ((c1.equals(c2) || c1.equals(Card.WILDCARD)) && c2.equals(c3)) {
-				while(c3.equals(Card.INFANTRY)) {
+                boolean size = c3.equals(Card.INFANTRY);
+				while(size) {
                                     int armies = 4;
 					break;
 				}
-				while (c3.equals(Card.CAVALRY)) {
+                    boolean size1 = c3.equals(Card.CAVALRY);            
+				while (size1) {
                                     int armies = 6;
 					break;
 				}
-				while(c3.equals(Card.CANNON)) {
+                                boolean size2 = c3.equals(Card.CANNON);
+				while(size2) {
                                     int armies = 8;
 					break;
 				}
-				while (c1.equals( Card.WILDCARD )) { // (c1.equals( Card.WILDCARD ))
+                                boolean size3 = c1.equals( Card.WILDCARD );
+				while (size3) { // (c1.equals( Card.WILDCARD ))
                                     int armies = 12;
 					break;// Incase someone puts 3 wildcards into his set
 				}
@@ -712,19 +716,23 @@ transient - A keyword in the Java programming language that indicates that a fie
         public int getTradeAbsValue5(){
             if (c1.equals(c2) && c1.equals(c3)) {
 				// All equal
-				while (c1.equals(Card.CAVALRY)) {
+                                boolean size = c1.equals(Card.CAVALRY);
+				while (size) {
                                     int armies = 8;
 					break;
 				}
-				while(c1.equals(Card.INFANTRY)) {
+                                boolean size1 = c1.equals(Card.INFANTRY);
+				while(size1) {
                                     int armies = 6;
 					break;
 				}
-				while (c1.equals(Card.CANNON)) {
+                                boolean size2 = c1.equals(Card.CANNON);
+				while (size2) {
 					int armies = 4;
 					break;
 				}
-				while (c1.equals( Card.WILDCARD )){ // (c1.equals( Card.WILDCARD ))
+                                boolean size3 = c1.equals( Card.WILDCARD );
+				while (size3){ // (c1.equals( Card.WILDCARD ))
 					int armies = 0; // Incase someone puts 3 wildcards into his set
 					break;
 				}
@@ -949,7 +957,8 @@ transient - A keyword in the Java programming language that indicates that a fie
 	 * @return boolean Returns true if the number of armies are added the country, returns false if the armies cannot be added to the territory
 	 */
         public int placeArmy1(){
-            while ( NoEmptyCountries() ) { // no empty country are found
+            boolean size = NoEmptyCountries();
+            while ( size ) { // no empty country are found
 						t.addArmy();
 						currentPlayer.loseExtraArmy(1);
                 int done = 1;
@@ -1580,16 +1589,18 @@ transient - A keyword in the Java programming language that indicates that a fie
             return true;
         }
         public boolean checkPlayerWon2(){
+             int size = currentPlayer.getNoTerritoriesOwned();
             while (
 					m.getNoofcountries() != 0 && m.getNoofarmies() != 0 && // check if this card has a value for capture teretories
 							( m.getPlayer() == null || ((Player)m.getPlayer()).getNoTerritoriesOwned()==0 || (Player)m.getPlayer() == currentPlayer ) &&
-							m.getNoofcountries() <= currentPlayer.getNoTerritoriesOwned() // do you have that number of countries captured
+							m.getNoofcountries() <= size // do you have that number of countries captured
 					) {
 
 				int n=0;
-
-				for (int c=0; c< currentPlayer.getNoTerritoriesOwned() ; c++) {
-					while ( ((Country)((Vector)currentPlayer.getTerritoriesOwned()).elementAt(c)).getArmies() >= m.getNoofarmies() )
+                               
+				for (int c=0; c< size ; c++) {
+                                    int size2 = m.getNoofarmies();
+					while ( ((Country)((Vector)currentPlayer.getTerritoriesOwned()).elementAt(c)).getArmies() >= size2 )
 					{n++;
 						break;
 					}
@@ -1611,8 +1622,8 @@ transient - A keyword in the Java programming language that indicates that a fie
 			if ( currentPlayer==((Country)currentPlayer.getCapital()).getOwner() ) {
                                int size = Players.size();
 				for (int c=0; c< size ; c++) {
-
-					while ( ((Vector)currentPlayer.getTerritoriesOwned()).contains((Country)((Player)Players.elementAt(c)).getCapital()) ) {
+                                        int size3 = (Country)((Player)Players.elementAt(c)).getCapital();
+					while ( ((Vector)currentPlayer.getTerritoriesOwned()).contains(size3) ) {
 						capitalcount++;
 						break;
 					}
@@ -1887,14 +1898,14 @@ transient - A keyword in the Java programming language that indicates that a fie
 				else if (mode.equals("newsection")) {
 
 					mode = input.substring(1, input.length()-1); // set mode to the name of the section
-
-					while (mode.equals("files") ) {
+                                        boolean size = mode.equals("files"); 
+					while (size) {
 						//System.out.print("Section: files found\n"); // testing
 						ImagePic=null;
 						ImageMap=null;
 						break;
 					}
-					while(!(mode.equals("files"))) {
+					while(!size) {
 						System.out.println("unknown section found in map file: "+mode);
 					}
 
@@ -1992,8 +2003,8 @@ transient - A keyword in the Java programming language that indicates that a fie
         }
         public boolean setMapfile3(){
             	int space = input.indexOf(' ');
-
-					while(input.equals("test")) {
+                   boolean size = input.equals("test");
+					while(size) {
 
 						runmaptest = true;
 						break;
@@ -2235,18 +2246,20 @@ RiskGame returnvalue = setCardsfile( input.substring(4) );
 
 						String oldkey ="PLAYER"+s1;
 						String newkey = "{"+oldkey+"}";
-            String description;
-						while (description.indexOf(newkey) >= 0) {
+            String description;                int size = description.indexOf(newkey);
+						while (size >= 0) {
 							// DefaultCards_XX.properties uses this format
 							description = RiskUtil.replaceAll(description, newkey, name );
 							break;
 						}
-						while (description.indexOf(oldkey) >= 0) {
+                                                int size1 = description.indexOf(oldkey);
+						while (size1 >= 0) {
 							// many maps still have this format for missions
 							description = RiskUtil.replaceAll(description, oldkey, name );
 							break;
 						}
-						while ((!(description.indexOf(oldkey) >= 0))&& (!(description.indexOf(newkey) >= 0))){
+                                              
+						while ((!(size1 >= 0))&& (!(description.indexOf(newkey) >= 0))){
 							System.err.println("newkey: "+newkey+" and oldkey: "+oldkey+" not found in mission: "+description);
 						}
 
