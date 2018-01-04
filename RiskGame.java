@@ -1573,12 +1573,14 @@ transient - A keyword in the Java programming language that indicates that a fie
         public boolean checkPlayerWon1(){
            
             Object size = m.getContinent1();
+            Object size1 = m.getContinent2();
+            Object size2 = m.getContinent3();
             while (
 					(size !=null) && // this means its a continent mission
 
-							checkPlayerOwnesContinentForMission(m.getContinent1(),1) &&
-							checkPlayerOwnesContinentForMission(m.getContinent2(),2) &&
-							checkPlayerOwnesContinentForMission(m.getContinent3(),3)
+							checkPlayerOwnesContinentForMission(size,1) &&
+							checkPlayerOwnesContinentForMission(size1,2) &&
+							checkPlayerOwnesContinentForMission(size2,3)
 
 					) {
 
