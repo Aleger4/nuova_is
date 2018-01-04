@@ -1609,11 +1609,12 @@ transient - A keyword in the Java programming language that indicates that a fie
 				int n=0;
                                
 				for (int c=0; c< size ; c++) {
-                                checkPlayerWon4();
+                                checkPlayerWon6();
 				break;
 			}
             return false;
-        }
+        }   return false;
+}
         public boolean checkPlayerWon3(){
             	int capitalcount=0;
 
