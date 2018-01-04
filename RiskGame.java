@@ -674,6 +674,7 @@ transient - A keyword in the Java programming language that indicates that a fie
 							(c1.equals(c2) && c1.equals(c3)) ||
 							(!c1.equals(c2) && !c1.equals(c3) && !c2.equals(c3))
 					) {
+                            System.out.println("error");
                             
 			}
 		}
@@ -709,6 +710,7 @@ transient - A keyword in the Java programming language that indicates that a fie
 					(c1.equals(Card.WILDCARD) && c2.equals(Card.WILDCARD)) ||
 							(!c1.equals(c2) && !c2.equals(c3) && !c1.equals(c3))
 					) {
+                System.out.print("");
               
 			}
             return 0;
@@ -741,15 +743,15 @@ transient - A keyword in the Java programming language that indicates that a fie
         }
         public int getTradeAbsValue6(){
             if (!c1.equals(c2) && !c2.equals(c3) && !c1.equals(c3) && !c1.equals(Card.WILDCARD)) {
-                
+                            System.out.print("");
 			}
 			//All the same w/1 wildcard
 			else if (c1.equals(Card.WILDCARD) && c2.equals(c3)) {
-          
+           System.out.print("");
 			}
 			//2 wildcards, or a wildcard and two different
 			else {
-               
+                System.out.print("");
 			}
             return 0;
         }
@@ -1024,7 +1026,7 @@ transient - A keyword in the Java programming language that indicates that a fie
 				}
 
 				if ( checkPlayerWon() ) {
-                
+                 System.out.print("");
 				}
             return 0;
         }
@@ -1633,7 +1635,7 @@ transient - A keyword in the Java programming language that indicates that a fie
 			}
 
 			if ( capitalcount==Players.size() ) {
-                      
+                       System.out.print("");
 			}
             return false;
                         
@@ -1672,7 +1674,7 @@ transient - A keyword in the Java programming language that indicates that a fie
 		if (won == Continents.length ) {
 
              
-                //System.out.print("The Game Is Over, "+currentPlayer.getName()+" has won!\n");
+                System.out.print("The Game Is Over, "+currentPlayer.getName()+" has won!\n");
 
 		}
                 return false;
@@ -1817,10 +1819,11 @@ transient - A keyword in the Java programming language that indicates that a fie
          public void loadMap2(){
             String input = null;
              if (input.charAt(0)=='[' && input.charAt( input.length()-1 )==']') {
-                 //System.out.print("Something beggining with [ and ending with ] found\n"); // testing
+                 System.out.print("Something beggining with [ and ending with ] found\n"); // testing
                
 				}
 				else {
+                  System.out.print("");
 }
          }
          public void loadMap5(){
@@ -2010,7 +2013,7 @@ transient - A keyword in the Java programming language that indicates that a fie
 				
                                 if ("borders".equals(mode)) {
 
-              
+               System.out.print("");
 
 				}
 				else if ("newsection".equals(mode)) {
@@ -2053,7 +2056,7 @@ transient - A keyword in the Java programming language that indicates that a fie
 					else if ( input.startsWith("prv ") ) { previewPic = input.substring(4); }
 
 					else if ( input.startsWith("crd ") ) { 
- 
+  System.out.print("");
 }
 
 				}
@@ -2310,10 +2313,10 @@ transient - A keyword in the Java programming language that indicates that a fie
         public void loadCards1(){
             String input = null;
                     if (input.charAt(0)=='[' && input.charAt( input.length()-1 )==']') {
-                        //System.out.print("Something beggining with [ and ending with ] found\n"); // testing
+                        System.out.print("Something beggining with [ and ending with ] found\n"); // testing
                    
 				}
-				else { 
+				else {  System.out.print("");
 }
                 }
 	public void loadCards(boolean rawLoad) throws Exception {
@@ -2407,12 +2410,12 @@ transient - A keyword in the Java programming language that indicates that a fie
 
 					if (mode.equals("cards")) {
 
-                                        
+                                         System.out.print("");
 
 					}
 					else if (mode.equals("missions")) {
 
-                                           
+                                            System.out.print("");
 
 					}
 				}
@@ -2421,9 +2424,9 @@ transient - A keyword in the Java programming language that indicates that a fie
         public boolean setCardsfile1(){
             String input;
             if (input.charAt(0)=='[' && input.charAt( input.length()-1 )==']') {
-               
+                System.out.print("");
 				}
-				else { 
+				else {  System.out.print("");
 }
             return false;
         }
@@ -3139,8 +3142,8 @@ System.out.print(str+"]\n");
 		if (saturation == 0.0) {
 			r = g = b = (int) (brightness * 255.0f + 0.5f);
 		} else {
-			float h = (hue - (float)Math.floor(hue)) * 6.0f;
-			float f = h - (float)java.lang.Math.floor(h);
+			
+			
 			
 			
 		}
