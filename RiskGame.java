@@ -1571,9 +1571,10 @@ transient - A keyword in the Java programming language that indicates that a fie
 	 */
         
         public boolean checkPlayerWon1(){
-          
+           
+            Object size = m.getContinent1();
             while (
-					(m.getContinent1() !=null) && // this means its a continent mission
+					(size !=null) && // this means its a continent mission
 
 							checkPlayerOwnesContinentForMission(m.getContinent1(),1) &&
 							checkPlayerOwnesContinentForMission(m.getContinent2(),2) &&
@@ -1581,8 +1582,8 @@ transient - A keyword in the Java programming language that indicates that a fie
 
 					) {
 
-				// yay you have won
-				result=true;
+                // yay you have won
+                boolean result = true;
 				break;
 
 			}
@@ -1590,8 +1591,10 @@ transient - A keyword in the Java programming language that indicates that a fie
         }
         public boolean checkPlayerWon2(){
              int size = currentPlayer.getNoTerritoriesOwned();
+            int size1 = m.getNoofcountries();
+            int size2 = m.getNoofarmies();
             while (
-					m.getNoofcountries() != 0 && m.getNoofarmies() != 0 && // check if this card has a value for capture teretories
+					 size1 != 0 && size2 != 0 && // check if this card has a value for capture teretories
 							( m.getPlayer() == null || ((Player)m.getPlayer()).getNoTerritoriesOwned()==0 || (Player)m.getPlayer() == currentPlayer ) &&
 							m.getNoofcountries() <= size // do you have that number of countries captured
 					) {
@@ -1599,14 +1602,14 @@ transient - A keyword in the Java programming language that indicates that a fie
 				int n=0;
                                
 				for (int c=0; c< size ; c++) {
-                                    int size2 = m.getNoofarmies();
-					while ( ((Country)((Vector)currentPlayer.getTerritoriesOwned()).elementAt(c)).getArmies() >= size2 )
+                                    int size3 = ((Country)((Vector)currentPlayer.getTerritoriesOwned()).elementAt(c)).getArmies();
+					while ( size3 >= size2)
 					{n++;
 						break;
 					}
 
 				}
-				if (n >= m.getNoofcountries() ) {
+				if (n >= size1 ) {
 
                                     // yay you have won
                                     boolean result = true;
@@ -1623,7 +1626,8 @@ transient - A keyword in the Java programming language that indicates that a fie
                                int size = Players.size();
 				for (int c=0; c< size ; c++) {
                                         int size3 = (Country)((Player)Players.elementAt(c)).getCapital();
-					while ( ((Vector)currentPlayer.getTerritoriesOwned()).contains(size3) ) {
+                                        Vector size4 = (Vector)currentPlayer.getTerritoriesOwned();
+					while ( (size4).contains(size3) ) {
 						capitalcount++;
 						break;
 					}
@@ -1640,12 +1644,13 @@ transient - A keyword in the Java programming language that indicates that a fie
         }
         public boolean checkPlayerWon4(){
             Mission m = currentPlayer.getMission();
-
+            Vector size2 = (Vector)currentPlayer.getPlayersEliminated();
+            Object size = m.getPlayer();
 			while(
-					m.getPlayer() !=null && // check is this is indeed a Elim Player card
-							m.getPlayer() != currentPlayer && // check if its not the current player u need to eliminate
-							((Player)m.getPlayer()).getNoTerritoriesOwned()==0 && // chack if that player has been eliminated
-							((Vector)currentPlayer.getPlayersEliminated()).contains( m.getPlayer() ) //check if it was you who eliminated them
+					size !=null && // check is this is indeed a Elim Player card
+							size != currentPlayer && // check if its not the current player u need to eliminate
+							((Player)size).getNoTerritoriesOwned()==0 && // chack if that player has been eliminated
+							(size2).contains( size ) //check if it was you who eliminated them
 					) {
 
                 // yay you have won
@@ -2259,7 +2264,7 @@ RiskGame returnvalue = setCardsfile( input.substring(4) );
 							break;
 						}
                                               
-						while ((!(size1 >= 0))&& (!(description.indexOf(newkey) >= 0))){
+						while ((!(size1 >= 0))&& (!(size >= 0))){
 							System.err.println("newkey: "+newkey+" and oldkey: "+oldkey+" not found in mission: "+description);
 						}
 
