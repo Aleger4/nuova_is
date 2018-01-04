@@ -8,7 +8,7 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
-import java.io.PrintStream;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -348,8 +348,8 @@ transient - A keyword in the Java programming language that indicates that a fie
 			//}
 			//
 			//System.out.print("Game Started\n"); // testing
-
-			for (int c=0; c< Players.size() ; c++) {
+                        int size = Players.size() ;
+			for (int c=0; c< size ; c++) {
 				((Player)Players.elementAt(c)).addArmies(armies);
 			}
 
@@ -437,17 +437,17 @@ transient - A keyword in the Java programming language that indicates that a fie
 
 			Country c1 = Countries[c];
 			Vector c1neighbours = (Vector)c1.getNeighbours();
+                         int size = c1neighbours.size();
+			if (c1neighbours.contains(c1)) { System.err.println("Error: "+c1.getName()+" neighbours with itself"); }
 
-			if (c1neighbours.contains(c1)) { throw new Exception("Error: "+c1.getName()+" neighbours with itself"); }
-
-			for (int a=0; a< c1neighbours.size() ; a++) {
+			for (int a=0; a< size ; a++) {
 
 				Country c2 = (Country)c1neighbours.elementAt(a);
 				Vector c2neighbours = (Vector)c2.getNeighbours();
 
 				boolean ok=false;
 
-				for (int b=0; b< c2neighbours.size() ; b++) {
+				for (int b=0; b< size ; b++) {
 
 					Country c3 = (Country)c2neighbours.elementAt(b);
 
@@ -518,7 +518,8 @@ transient - A keyword in the Java programming language that indicates that a fie
                 }
         }
         public void endGo2(){
-             for (int c=0; c< Players.size() ; c++) {
+            int size = Players.size();
+             for (int c=0; c< size ; c++) {
 					if ( currentPlayer==((Player)Players.elementAt(c)) && Players.size()==(c+1) ) {
 						currentPlayer=(Player)Players.elementAt(0);
 						c=Players.size();
@@ -926,7 +927,7 @@ transient - A keyword in the Java programming language that indicates that a fie
 		if (canEndTrade()) {
 			gameState=STATE_PLACE_ARMIES;
 			if (tradeCap) {
-				throw new RuntimeException("endTrade worked when tradeCap was true");
+				System.err.println("endTrade worked when tradeCap was true");
 			}
 			return true;
 		}
@@ -2225,7 +2226,9 @@ RiskGame returnvalue = setCardsfile( input.substring(4) );
 						try { // in Java 1.4 no if (trans.containsKey(color))
 							name = trans.getString(color)+" "+name;
 						}
-						catch (Exception ex) { }
+						catch (Exception ex) {
+                                                System.err.println("error");
+                                                }
             String s1;
 
 						String oldkey ="PLAYER"+s1;
