@@ -592,7 +592,7 @@ transient - A keyword in the Java programming language that indicates that a fie
 
 		}
 		else {
-                    //System.out.println("lala "+gameState);
+                    System.out.println("lala "+gameState);
 
 		}
 	}
@@ -1575,12 +1575,15 @@ transient - A keyword in the Java programming language that indicates that a fie
             Object size = m.getContinent1();
             Object size1 = m.getContinent2();
             Object size2 = m.getContinent3();
+            boolean size4 = checkPlayerOwnesContinentForMission(size,1);
+            boolean size5 = checkPlayerOwnesContinentForMission(size1,2);
+            boolean size6 =  checkPlayerOwnesContinentForMission(size2,3);       
             while (
 					(size !=null) && // this means its a continent mission
 
-							checkPlayerOwnesContinentForMission(size,1) &&
-							checkPlayerOwnesContinentForMission(size1,2) &&
-							checkPlayerOwnesContinentForMission(size2,3)
+							size4 &&
+							size5 &&
+							size6
 
 					) {
 
@@ -1595,11 +1598,14 @@ transient - A keyword in the Java programming language that indicates that a fie
              int size = currentPlayer.getNoTerritoriesOwned();
             int size1 = m.getNoofcountries();
             int size2 = m.getNoofarmies();
+            Object size5 = m.getPlayer();
+        int size4 = (Player)m.getPlayer();
+
             while (
 					 size1 != 0 && size2 != 0 && // check if this card has a value for capture teretories
-							( m.getPlayer() == null || ((Player)m.getPlayer()).getNoTerritoriesOwned()==0 || (Player)m.getPlayer() == currentPlayer ) &&
-							m.getNoofcountries() <= size // do you have that number of countries captured
-					) {
+							( size5 == null || (size4 ==0 || (Player)size5 == currentPlayer ) &&
+							size1 <= size // do you have that number of countries captured
+					)) {
 
 				int n=0;
                                
@@ -1627,9 +1633,9 @@ transient - A keyword in the Java programming language that indicates that a fie
 			if ( currentPlayer==((Country)currentPlayer.getCapital()).getOwner() ) {
                                int size = Players.size();
 				for (int c=0; c< size ; c++) {
-                                        int size3 = (Country)((Player)Players.elementAt(c)).getCapital();
-                                        Vector size4 = (Vector)currentPlayer.getTerritoriesOwned();
-					while ( (size4).contains(size3) ) {
+                                   boolean size3 = ((Vector)currentPlayer.getTerritoriesOwned()).contains((Country)((Player)Players.elementAt(c)).getCapital());
+                                       
+					while ( size3 ) {
 						capitalcount++;
 						break;
 					}
@@ -1648,11 +1654,13 @@ transient - A keyword in the Java programming language that indicates that a fie
             Mission m = currentPlayer.getMission();
             Vector size2 = (Vector)currentPlayer.getPlayersEliminated();
             Object size = m.getPlayer();
+          int size3 = (Player)size;
+
 			while(
 					size !=null && // check is this is indeed a Elim Player card
 							size != currentPlayer && // check if its not the current player u need to eliminate
-							((Player)size).getNoTerritoriesOwned()==0 && // chack if that player has been eliminated
-							(size2).contains( size ) //check if it was you who eliminated them
+							(size3 ==0 && // chack if that player has been eliminated
+							(size2).contains( size )) //check if it was you who eliminated them
 					) {
 
                 // yay you have won
@@ -1942,7 +1950,7 @@ transient - A keyword in the Java programming language that indicates that a fie
 
 			if (input.equals("") || input.charAt(0)==';') {
 				// do nothing
-				//System.out.print("Nothing\n"); // testing
+				System.out.print("Nothing\n"); // testing
 			}
 			else {
 				//System.out.print("Something found\n"); // testing
@@ -2090,6 +2098,7 @@ RiskGame returnvalue = setCardsfile( input.substring(4) );
 		while(input != null) {
 
 			if (input.equals("") || input.charAt(0)==';') {
+                            System.out.println("..");
 
 			}
 			else {
@@ -2328,7 +2337,7 @@ RiskGame returnvalue = setCardsfile( input.substring(4) );
 
 			if (input.equals("") || input.charAt(0)==';') {
 				// do nothing
-				//System.out.print("Nothing\n"); // testing
+				System.out.print("Nothing\n"); // testing
 			}
 			else {
 
@@ -2461,7 +2470,7 @@ RiskGame returnvalue = setCardsfile( input.substring(4) );
 		while(input != null) {
 
 			if (input.equals("") || input.charAt(0)==';') {
-
+                      System.out.print("..");
 			}
 			else {
 
