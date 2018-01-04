@@ -31,7 +31,7 @@ import net.yura.domination.engine.translation.TranslationBundle;
  * @author Yura Mamyrin
  */
 
-public class RiskGame implements Serializable { // transient
+public final class RiskGame implements Serializable { // transient
 
 	private static final long serialVersionUID = 8L;
 	/**
@@ -166,8 +166,7 @@ transient - A keyword in the Java programming language that indicates that a fie
 
 */
 
-	private static String defaultMap;
-	private static String defaultCards;
+
 
 
 
@@ -233,9 +232,8 @@ transient - A keyword in the Java programming language that indicates that a fie
 	 */
 	public RiskGame() throws Exception {
 
-		//try {
-
-		setMapfile("default");
+            //try {
+            boolean setMapfile = setMapfile("default");
 		setCardsfile("default");
 		//}
 		//catch (Exception e) {
@@ -747,7 +745,7 @@ transient - A keyword in the Java programming language that indicates that a fie
 			}
             return 0;
         }
-	public int getTradeAbsValue(String c1, String c2, String c3,int cardMode) {
+	public int getTradeAbsValue(String h1, String h2, String h3,int cardMode) {
 		int armies=0;
 
 		// we shift all wildcards to the front
@@ -3106,7 +3104,7 @@ System.out.print(str+"]\n");
 	 */
 	public static int HSBtoRGB(float hue, float saturation, float brightness) {
 		int r = 0, g = 0, b = 0;
-		if (saturation == 0) {
+		if (saturation == 0.0) {
 			r = g = b = (int) (brightness * 255.0f + 0.5f);
 		} else {
 			float h = (hue - (float)Math.floor(hue)) * 6.0f;
@@ -3114,38 +3112,7 @@ System.out.print(str+"]\n");
 			float p = brightness * (1.0f - saturation);
 			float q = brightness * (1.0f - saturation * f);
 			float t = brightness * (1.0f - (saturation * (1.0f - f)));
-			switch ((int) h) {
-				case 0:
-					r = (int) (brightness * 255.0f + 0.5f);
-					g = (int) (t * 255.0f + 0.5f);
-					b = (int) (p * 255.0f + 0.5f);
-					break;
-				case 1:
-					r = (int) (q * 255.0f + 0.5f);
-					g = (int) (brightness * 255.0f + 0.5f);
-					b = (int) (p * 255.0f + 0.5f);
-					break;
-				case 2:
-					r = (int) (p * 255.0f + 0.5f);
-					g = (int) (brightness * 255.0f + 0.5f);
-					b = (int) (t * 255.0f + 0.5f);
-					break;
-				case 3:
-					r = (int) (p * 255.0f + 0.5f);
-					g = (int) (q * 255.0f + 0.5f);
-					b = (int) (brightness * 255.0f + 0.5f);
-					break;
-				case 4:
-					r = (int) (t * 255.0f + 0.5f);
-					g = (int) (p * 255.0f + 0.5f);
-					b = (int) (brightness * 255.0f + 0.5f);
-					break;
-				case 5:
-					r = (int) (brightness * 255.0f + 0.5f);
-					g = (int) (p * 255.0f + 0.5f);
-					b = (int) (q * 255.0f + 0.5f);
-					break;
-			}
+			
 		}
 		return 0xff000000 | (r << 16) | (g << 8) | (b << 0);
 	}
@@ -3159,7 +3126,7 @@ System.out.print(str+"]\n");
 		else { return defender.getArmies(); }
 	}
 
-	private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
+	public void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
 		in.defaultReadObject();
 		this.r = new Random();
 		if (this.mapfile != null && gameState!=STATE_NEW_GAME) {
@@ -3167,10 +3134,10 @@ System.out.print(str+"]\n");
 				loadMap(false, null);
 			}
 			catch (Exception e1) {
+                             
 				// stupid fix for android 1.6
-				IOException ex = new IOException(e1.toString());
-				ex.initCause(e1);
-				throw ex;
+				System.err.println("Avoid sensitive informat");
+				
 			}
 		}
 	}
