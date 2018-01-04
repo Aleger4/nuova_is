@@ -996,15 +996,17 @@ transient - A keyword in the Java programming language that indicates that a fie
         }
         public int placeArmy4(){
             if (getSetupDone() ) { // ie the initial setup has been compleated
-					while ( currentPlayer.getExtraArmies()==0 ) { gameState=STATE_ATTACKING;
+                                        int size = currentPlayer.getExtraArmies();
+					while ( size == 0 ) { gameState=STATE_ATTACKING;
 						break;
 					}
-					while(!( currentPlayer.getExtraArmies()==0 )) { gameState=STATE_PLACE_ARMIES;
+					while(!( size == 0 )) { gameState=STATE_PLACE_ARMIES;
 						break;
 					}
 				}
 				else { // initial setup is not compleated
-					while (currentPlayer.getExtraArmies()==0) {
+                int size = currentPlayer.getExtraArmies();
+					while (size==0) {
 						setup++; // another player has finished initial setup
 						break;
 					}
@@ -1252,8 +1254,8 @@ transient - A keyword in the Java programming language that indicates that a fie
          	result[3]=2;
                                    Player lostPlayer=(Player)defender.getOwner();
 					currentPlayer.addPlayersEliminated(lostPlayer);
-
-					while (lostPlayer.getCards().size() > 0) {
+                                        int size = lostPlayer.getCards().size();
+					while (size > 0) {
 
 						//System.out.print("Hes got a card .. i must take it!\n");
 						currentPlayer.giveCard( lostPlayer.takeCard() );
@@ -1262,7 +1264,8 @@ transient - A keyword in the Java programming language that indicates that a fie
 
 					// in italian rules there is no limit to the number of cards you can hold
 					// if winning the other players cards gives you 6 or more cards you must immediately trade
-					while ( cardMode!=CARD_ITALIANLIKE_SET && currentPlayer.getCards().size() > MAX_CARDS) {
+					 size = currentPlayer.getCards().size();
+                                        while ( cardMode!=CARD_ITALIANLIKE_SET && size > MAX_CARDS) {
 						// gameState=STATE_BATTLE_WON;
 						tradeCap=true;
 						break;
@@ -1316,7 +1319,8 @@ transient - A keyword in the Java programming language that indicates that a fie
 			battle1();
 
 			// battle away!
-			for (int c=0; c< Math.min(attackerResults.length, defenderResults.length) ; c++) {
+                        int size = Math.min(attackerResults.length, defenderResults.length);
+			for (int c=0; c< size ; c++) {
 
 				battle2();
 
