@@ -233,7 +233,7 @@ transient - A keyword in the Java programming language that indicates that a fie
 	public RiskGame() throws Exception {
 
             //try {
-            boolean setMapfile = setMapfile("default");
+            
 		setCardsfile("default");
 		//}
 		//catch (Exception e) {
@@ -674,7 +674,7 @@ transient - A keyword in the Java programming language that indicates that a fie
 							(c1.equals(c2) && c1.equals(c3)) ||
 							(!c1.equals(c2) && !c1.equals(c3) && !c2.equals(c3))
 					) {
-                            int armies = getNewCardState();
+                            
 			}
 		}
             return 0;
@@ -683,22 +683,22 @@ transient - A keyword in the Java programming language that indicates that a fie
             if ((c1.equals(c2) || c1.equals(Card.WILDCARD)) && c2.equals(c3)) {
                 boolean size = c3.equals(Card.INFANTRY);
 				while(size) {
-                                    int armies = 4;
+                                    
 					break;
 				}
                     boolean size1 = c3.equals(Card.CAVALRY);            
 				while (size1) {
-                                    int armies = 6;
+                                  
 					break;
 				}
                                 boolean size2 = c3.equals(Card.CANNON);
 				while(size2) {
-                                    int armies = 8;
+                                 
 					break;
 				}
                                 boolean size3 = c1.equals( Card.WILDCARD );
 				while (size3) { // (c1.equals( Card.WILDCARD ))
-                                    int armies = 12;
+                                   
 					break;// Incase someone puts 3 wildcards into his set
 				}
 			}
@@ -709,7 +709,7 @@ transient - A keyword in the Java programming language that indicates that a fie
 					(c1.equals(Card.WILDCARD) && c2.equals(Card.WILDCARD)) ||
 							(!c1.equals(c2) && !c2.equals(c3) && !c1.equals(c3))
 					) {
-                int armies = 10;
+              
 			}
             return 0;
         }
@@ -718,22 +718,22 @@ transient - A keyword in the Java programming language that indicates that a fie
 				// All equal
                                 boolean size = c1.equals(Card.CAVALRY);
 				while (size) {
-                                    int armies = 8;
+                                    
 					break;
 				}
                                 boolean size1 = c1.equals(Card.INFANTRY);
 				while(size1) {
-                                    int armies = 6;
+                                  
 					break;
 				}
                                 boolean size2 = c1.equals(Card.CANNON);
 				while (size2) {
-					int armies = 4;
+					
 					break;
 				}
                                 boolean size3 = c1.equals( Card.WILDCARD );
 				while (size3){ // (c1.equals( Card.WILDCARD ))
-					int armies = 0; // Incase someone puts 3 wildcards into his set
+					 // Incase someone puts 3 wildcards into his set
 					break;
 				}
 			}
@@ -741,15 +741,15 @@ transient - A keyword in the Java programming language that indicates that a fie
         }
         public int getTradeAbsValue6(){
             if (!c1.equals(c2) && !c2.equals(c3) && !c1.equals(c3) && !c1.equals(Card.WILDCARD)) {
-                int armies = 10;
+                
 			}
 			//All the same w/1 wildcard
 			else if (c1.equals(Card.WILDCARD) && c2.equals(c3)) {
-                int armies = 12;
+          
 			}
 			//2 wildcards, or a wildcard and two different
 			else {
-                int armies = 0;
+               
 			}
             return 0;
         }
@@ -866,14 +866,13 @@ transient - A keyword in the Java programming language that indicates that a fie
                 getBestTrade1();
 		
 		Card carda = null;
-		Card cardb = null;
-		Card cardc = null;
+		
 		int bestValue = 0;
 		if (cardTypes.size() >= 3) {
 		getBestTrade2();
 		}
 		List<Card> wildCards = cardTypes.get(Card.WILDCARD);
-		int wildCardCount = wildCards==null?0:wildCards.size();
+		
 		for (Map.Entry<String, List<Card>> entry : cardTypes.entrySet()) {
                    
 			if(carda == null){
@@ -961,7 +960,7 @@ transient - A keyword in the Java programming language that indicates that a fie
             while ( size ) { // no empty country are found
 						t.addArmy();
 						currentPlayer.loseExtraArmy(1);
-                int done = 1;
+               
 						break;
 						//System.out.print("army placed in: " + t.getName() + "\n"); // testing
 					}
@@ -983,7 +982,7 @@ transient - A keyword in the Java programming language that indicates that a fie
 					currentPlayer.newCountry(t);
 					t.addArmy();
 					currentPlayer.loseExtraArmy(1);
-                int done = 1;
+               
                 //System.out.print("country taken and army placed in: " + t.getName() + "\n"); // testing
 				}
             return 0;
@@ -998,7 +997,7 @@ transient - A keyword in the Java programming language that indicates that a fie
 					t.addArmies(n);
 					currentPlayer.loseExtraArmy(n);
                 //System.out.print("army placed in: " + t.getName() + "\n"); // testing
-                int done = 1;
+         
 
 				}
             return 0;
@@ -1025,7 +1024,7 @@ transient - A keyword in the Java programming language that indicates that a fie
 				}
 
 				if ( checkPlayerWon() ) {
-                int done = 2;
+                
 				}
             return 0;
         }
@@ -1067,7 +1066,7 @@ transient - A keyword in the Java programming language that indicates that a fie
 			else {
 				// find a empty country
 				int a = r.nextInt(Countries.length);
-				boolean done = false;
+				
 				for (int c=a; c < Countries.length ; c++) {
                                     getRandomCountry1();
 					
@@ -1077,7 +1076,7 @@ transient - A keyword in the Java programming language that indicates that a fie
             
         }
         public int getRandomCountry1() {
-            List countries = currentPlayer.getTerritoriesOwned();
+            
             int c = 0;
             boolean done = false;
             if ( Countries[c].getOwner() == null ) {
@@ -1588,7 +1587,7 @@ transient - A keyword in the Java programming language that indicates that a fie
 					) {
 
                 // yay you have won
-                boolean result = true;
+            
 				break;
 
 			}
@@ -1620,7 +1619,7 @@ transient - A keyword in the Java programming language that indicates that a fie
 				if (n >= size1 ) {
 
                                     // yay you have won
-                                    boolean result = true;
+                                  
 
 				}
 				break;
@@ -1645,7 +1644,7 @@ transient - A keyword in the Java programming language that indicates that a fie
 			}
 
 			if ( capitalcount==Players.size() ) {
-                        boolean result = true;
+                      
 			}
             return false;
                         
@@ -1664,7 +1663,7 @@ transient - A keyword in the Java programming language that indicates that a fie
 					) {
 
                 // yay you have won
-                boolean result = true;
+              
 
 				break;
 			}
@@ -1683,7 +1682,7 @@ transient - A keyword in the Java programming language that indicates that a fie
 		}
 		if (won == Continents.length ) {
 
-                boolean result = true;
+             
                 //System.out.print("The Game Is Over, "+currentPlayer.getName()+" has won!\n");
 
 		}
@@ -1694,7 +1693,7 @@ transient - A keyword in the Java programming language that indicates that a fie
 		boolean result=false;
 
 		// check if the player has won
-		int won=0;
+		
 		checkPlayerWon5();
 
 	// check if the player has won capital risk!
@@ -1796,7 +1795,7 @@ transient - A keyword in the Java programming language that indicates that a fie
         public void loadMap1(){
             MapTranslator.setMap( mapfile );
 
-		StringTokenizer st=null;
+		
 
 		Vector Countries;
 		Vector Continents;
@@ -1814,9 +1813,9 @@ transient - A keyword in the Java programming language that indicates that a fie
             String input = null;
              if (input.charAt(0)=='[' && input.charAt( input.length()-1 )==']') {
                  //System.out.print("Something beggining with [ and ending with ] found\n"); // testing
-                 String mode = "newsection";
+               
 				}
-				else { StringTokenizer st = new StringTokenizer(input);
+				else {
 }
          }
          public void loadMap5(){
@@ -1854,7 +1853,7 @@ transient - A keyword in the Java programming language that indicates that a fie
              
          
             if(mode.equals("files")) {
-                 String input = null;
+               
 					//System.out.print("Adding files\n"); // testing
                       loadMap5();
 				
@@ -1930,7 +1929,7 @@ transient - A keyword in the Java programming language that indicates that a fie
 
 		MapTranslator.setMap( mapfile );
 
-		StringTokenizer st=null;
+	
 
 		Vector Countries = null;
 		Vector Continents = null;
@@ -1938,13 +1937,13 @@ transient - A keyword in the Java programming language that indicates that a fie
 
 		int mapVer = 1;
 		//System.out.print("Starting Load Map...\n");
-		int countryCount = 0;
+		
 		if (bufferin == null) {
 			bufferin=RiskUtil.readMap( RiskUtil.openMapStream(mapfile) );
 		}
 
 		String input = bufferin.readLine();
-		String mode = "none";
+		
 
 		while(input != null) {
 
@@ -2006,7 +2005,7 @@ transient - A keyword in the Java programming language that indicates that a fie
 				
                                 if ("borders".equals(mode)) {
 
-                boolean yesmap = true;
+              
 
 				}
 				else if ("newsection".equals(mode)) {
@@ -2048,8 +2047,8 @@ transient - A keyword in the Java programming language that indicates that a fie
 
 					else if ( input.startsWith("prv ") ) { previewPic = input.substring(4); }
 
-					else if ( input.startsWith("crd ") ) { boolean yescards = true;
-RiskGame returnvalue = setCardsfile( input.substring(4) );
+					else if ( input.startsWith("crd ") ) { 
+ 
 }
 
 				}
@@ -2091,12 +2090,10 @@ RiskGame returnvalue = setCardsfile( input.substring(4) );
 		String input = bufferin.readLine();
 		String mode = null;
 
-		boolean yesmap = false;
 		boolean returnvalue = false;
-		boolean yescards = false;
+		
 
 		while(input != null) {
-
 			if (input.equals("") || input.charAt(0)==';') {
                             System.out.println("..");
 
@@ -2179,10 +2176,6 @@ RiskGame returnvalue = setCardsfile( input.substring(4) );
 					String s5 = st.nextToken();
 					String s6 = st.nextToken();
 
-					Continent c1 = getMissionContinentfromString( s4 );
-					Continent c2 = getMissionContinentfromString( s5 );
-					Continent c3 = getMissionContinentfromString( s6 );
-
 					String missioncode=s1+"-"+noc+"-"+noa+"-"+s4+"-"+s5+"-"+s6;
             boolean rawLoad;
 					String description=rawLoad?null:MapTranslator.getTranslatedMissionName(missioncode);
@@ -2208,7 +2201,7 @@ RiskGame returnvalue = setCardsfile( input.substring(4) );
             if (mode.equals("cards")) {
 					//System.out.print("Adding cards\n"); // testing
                                        loadCards2();
-					String name=st.nextToken(); //System.out.print(name+"\n"); // testing
+					 //System.out.print(name+"\n"); // testing
 
 				
 
@@ -2286,7 +2279,7 @@ RiskGame returnvalue = setCardsfile( input.substring(4) );
             int s1 = 0;
             int size = Players.size();
                     while (s1==0 || s1>size ) {
-                Object p = null;
+               
 						break;
 					}
 					while (!(s1==0 || s1>size )) {
@@ -2313,14 +2306,14 @@ RiskGame returnvalue = setCardsfile( input.substring(4) );
             String input = null;
                     if (input.charAt(0)=='[' && input.charAt( input.length()-1 )==']') {
                         //System.out.print("Something beggining with [ and ending with ] found\n"); // testing
-                        String mode = "newsection";
+                   
 				}
-				else { StringTokenizer st = new StringTokenizer(input);
+				else { 
 }
                 }
 	public void loadCards(boolean rawLoad) throws Exception {
 
-		StringTokenizer st=null;
+		
 
 		Cards = new Vector();
 		usedCards = new Vector();
@@ -2409,7 +2402,7 @@ RiskGame returnvalue = setCardsfile( input.substring(4) );
 
 					if (mode.equals("cards")) {
 
-                                            boolean yescards = true;
+                                        
 
 					}
 					else if (mode.equals("missions")) {
