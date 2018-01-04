@@ -1609,19 +1609,7 @@ transient - A keyword in the Java programming language that indicates that a fie
 				int n=0;
                                
 				for (int c=0; c< size ; c++) {
-                                    int size3 = ((Country)((Vector)currentPlayer.getTerritoriesOwned()).elementAt(c)).getArmies();
-					while ( size3 >= size2)
-					{n++;
-						break;
-					}
-
-				}
-				if (n >= size1 ) {
-
-                                    // yay you have won
-                                  
-
-				}
+                                checkPlayerWon4();
 				break;
 			}
             return false;
@@ -1688,6 +1676,22 @@ transient - A keyword in the Java programming language that indicates that a fie
 		}
                 return false;
         }
+        
+        public boolean checkPlayerWon6(){
+                int size3 = ((Country)((Vector)currentPlayer.getTerritoriesOwned()).elementAt(c)).getArmies();
+            boolean n;
+            int size2;
+					while ( size3 >= size2)
+					{n++;
+						break;
+					}
+            
+
+				
+				
+            return false;
+        
+}
 	public boolean checkPlayerWon() {
 
 		boolean result=false;
