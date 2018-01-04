@@ -1506,8 +1506,8 @@ transient - A keyword in the Java programming language that indicates that a fie
 	 * @param p The current player
 	 */
 	public void getConnectedEmpire(List t, List a, List n, Player p) {
-
-		for (int i = 0; i < n.size() ; i++) {
+                    int size = n.size() ;
+		for (int i = 0; i < size ; i++) {
 
 			if ( ((Country)n.get(i)).getOwner() == p && t.contains( n.get(i) ) ) {
 
@@ -1533,8 +1533,8 @@ transient - A keyword in the Java programming language that indicates that a fie
 		if (gameState== STATE_SELECT_CAPITAL && gameMode == 2 && c.getOwner()==currentPlayer && currentPlayer.getCapital()==null) {
 
 			currentPlayer.setCapital(c);
-
-			for (int b=0; b< Cards.size() ; b++) {
+                        int size = Cards.size();
+			for (int b=0; b< size ; b++) {
 
 				if ( c== ((Card)Cards.elementAt(b)).getCountry() ) {
 					Cards.removeElementAt(b);
@@ -1605,8 +1605,8 @@ transient - A keyword in the Java programming language that indicates that a fie
             	int capitalcount=0;
 
 			if ( currentPlayer==((Country)currentPlayer.getCapital()).getOwner() ) {
-
-				for (int c=0; c< Players.size() ; c++) {
+                               int size = Players.size();
+				for (int c=0; c< size ; c++) {
 
 					while ( ((Vector)currentPlayer.getTerritoriesOwned()).contains((Country)((Player)Players.elementAt(c)).getCapital()) ) {
 						capitalcount++;
@@ -2251,11 +2251,12 @@ RiskGame returnvalue = setCardsfile( input.substring(4) );
                 }
         public void loadCards3(){
             int s1 = 0;
-                    while (s1==0 || s1>Players.size() ) {
+            int size = Players.size();
+                    while (s1==0 || s1>size ) {
                 Object p = null;
 						break;
 					}
-					while (!(s1==0 || s1>Players.size() )) {
+					while (!(s1==0 || s1>size )) {
 						p = (Player)Players.elementAt( s1-1 );
 					}
                 }
@@ -2631,8 +2632,8 @@ RiskGame returnvalue = setCardsfile( input.substring(4) );
 	 * @return Vector Return all the players
 	 */
 	public Vector getPlayersStats() {
-
-		for (int c=0; c< Players.size() ; c++) {
+            int size = Players.size() ;
+		for (int c=0; c< size; c++) {
 			workOutEndGoStats( (Player)Players.elementAt(c) );
 		}
 
@@ -2917,8 +2918,8 @@ System.out.print(str+"]\n");
 			String name;
 
 			getCards1(); // if (a==2)
-
-			for (int b=0; b< playersCards.size(); b++) {
+                          int size = playersCards.size();
+			for (int b=0; b< size; b++) {
 
 				if (name.equals(Card.WILDCARD) && name.equals( ((Card)playersCards.elementAt(b)).getName() ) ) {
 					c[a] = (Card) playersCards.remove(b);
@@ -2940,8 +2941,8 @@ System.out.print(str+"]\n");
 	public Card findCardAndRemoveIt(String name) {
 
 		int cardIndex = -1;
-
-		for (int c=0; c< Cards.size() ; c++) {
+                int size = Cards.size() ; 
+		for (int c=0; c< size ; c++) {
 			Card theCard = ((Card)Cards.elementAt(c));
 
 			// if we are looking for a wildcard, and this card is also a wildcard
