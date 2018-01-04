@@ -871,7 +871,7 @@ transient - A keyword in the Java programming language that indicates that a fie
 		if (cardTypes.size() >= 3) {
 		getBestTrade2();
 		}
-		List<Card> wildCards = cardTypes.get(Card.WILDCARD);
+		
 		
 		for (Map.Entry<String, List<Card>> entry : cardTypes.entrySet()) {
                    
@@ -1606,7 +1606,7 @@ transient - A keyword in the Java programming language that indicates that a fie
 							size1 <= size // do you have that number of countries captured
 					)) {
 
-				int n=0;
+			
                                
 				for (int c=0; c< size ; c++) {
                                 checkPlayerWon6();
@@ -1643,12 +1643,12 @@ transient - A keyword in the Java programming language that indicates that a fie
             Vector size2 = (Vector)currentPlayer.getPlayersEliminated();
             Object size = m.getPlayer();
           int size3 = (Player)size;
-
+            boolean size4 = (size2).contains( size );
 			while(
 					size !=null && // check is this is indeed a Elim Player card
 							size != currentPlayer && // check if its not the current player u need to eliminate
 							(size3 ==0 && // chack if that player has been eliminated
-							(size2).contains( size )) //check if it was you who eliminated them
+							size4) //check if it was you who eliminated them
 					) {
 
                 // yay you have won
@@ -2202,7 +2202,7 @@ transient - A keyword in the Java programming language that indicates that a fie
         }
         public void loadCards8(){
             String mode;
-            String st;
+          
             if (mode.equals("cards")) {
 					//System.out.print("Adding cards\n"); // testing
                                        loadCards2();
@@ -2412,7 +2412,7 @@ transient - A keyword in the Java programming language that indicates that a fie
 					}
 					else if (mode.equals("missions")) {
 
-                                            boolean yesmissions = true;
+                                           
 
 					}
 				}
@@ -2421,16 +2421,16 @@ transient - A keyword in the Java programming language that indicates that a fie
         public boolean setCardsfile1(){
             String input;
             if (input.charAt(0)=='[' && input.charAt( input.length()-1 )==']') {
-                String mode = "newsection";
+               
 				}
-				else { StringTokenizer st = new StringTokenizer(input);
+				else { 
 }
             return false;
         }
 	public boolean setCardsfile(String f) throws Exception {
 
 
-		StringTokenizer st=null;
+		
 
 
 		if (f.equals("default")) {
@@ -2460,7 +2460,7 @@ transient - A keyword in the Java programming language that indicates that a fie
 */
 
 		String input = bufferin.readLine();
-		String mode = "none";
+		
 
 		boolean yesmissions=false;
 		boolean yescards=false;
@@ -3141,9 +3141,7 @@ System.out.print(str+"]\n");
 		} else {
 			float h = (hue - (float)Math.floor(hue)) * 6.0f;
 			float f = h - (float)java.lang.Math.floor(h);
-			float p = brightness * (1.0f - saturation);
-			float q = brightness * (1.0f - saturation * f);
-			float t = brightness * (1.0f - (saturation * (1.0f - f)));
+			
 			
 		}
 		return 0xff000000 | (r << 16) | (g << 8) | (b << 0);
