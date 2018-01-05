@@ -2212,18 +2212,7 @@ public class AIDomination extends AISubmissive {
         }
     }
 
-    private int if_attack_target() {
-
-        if (game.getMaxDefendDice() == 2) {
-            forwardMin -= (total *= 1.3);
-        } else {
-            forwardMin -= total;
-        }
-        if (type == PLAYER_AI_HARD && !isIncreasingSet() && isBorder && isTooWeak(gameState)) {
-            //TODO: let the hard player lookahead further, alternatively just call to plan(true) and mark if we are doing an elimination or something
-            return Integer.MAX_VALUE;
-        }
-    }
+  
 
     private int getMinRemaining(HashMap<Country, AttackTarget> targets, int forwardMin, boolean isBorder, GameState gameState) {
        
