@@ -2386,7 +2386,6 @@ public class AIDomination extends AISubmissive {
        
        
         
-        GameState gs = getGameState(player, false);
         //fortify the border
         
         List<Country> filtered = new ArrayList<Country>();
@@ -2542,7 +2541,7 @@ public class AIDomination extends AISubmissive {
             continue;
         }
         //estimate the trade-in
-        int cards = player2.getCards().size() + 1;
+       
         
         PlayerState ps = new PlayerState();
         
