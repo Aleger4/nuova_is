@@ -35,7 +35,7 @@ public class CollisionResponse {
    public float newSpeedY;
    
    /** Constructor which resets the collision time to infinity. */
-   private CollisionResponse() {
+   public CollisionResponse() {
       reset();  // Reset detected collision time to infinity
    }
    
